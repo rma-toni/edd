@@ -1,7 +1,7 @@
 package tp0;
 
 //NOTA MUY IMPORTANTE
-//NO FUI PROBADO TODAVIA JEJE SALU2
+//NO FUE PROBADO TODAVIA JEJE SALU2
 
 import java.util.Scanner;
 
