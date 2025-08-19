@@ -1,16 +1,26 @@
 package tp1;
 
+import java.time.LocalDate;
+
 public class Licencia {
 
     private int numeroIdentificacion;
     private String tipoLicencia;
-    private int fechaEmision;
-    private int fechaVencimiento;
+    private LocalDate fechaEmision;
+    private LocalDate fechaVencimiento;
 
     public Licencia(){
         this.numeroIdentificacion = 0;
         this.tipoLicencia = "a definir";
-        this.fechaEmision =
+        this.fechaEmision = LocalDate.now();
+        this.fechaVencimiento = this.fechaEmision.plusMonths(1);
+    }
+
+    public Licencia(int numeroIdentificacion, String tipoLicencia, LocalDate fechaEmision, LocalDate fechaVencimiento){
+        this.numeroIdentificacion = numeroIdentificacion;
+        this.tipoLicencia = tipoLicencia;
+        this.fechaEmision = fechaEmision;
+        this.fechaVencimiento = fechaVencimiento;
     }
 
 }
