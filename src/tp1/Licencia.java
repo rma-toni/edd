@@ -19,15 +19,25 @@ public class Licencia {
     public Licencia(int numeroIdentificacion, String tipoLicencia, LocalDate fechaEmision, LocalDate fechaVencimiento){
         this.numeroIdentificacion = numeroIdentificacion;
         this.tipoLicencia = tipoLicencia;
-        this.fechaEmision = fechaEmision;
-        this.fechaVencimiento = fechaVencimiento;
+        this.validarFechas(fechaEmision,fechaVencimiento);
     }
 
-}
+    @Override
+    public String toString() {
+        return "N° Identificacion: "+numeroIdentificacion+". Tipo: "+tipoLicencia+". Emision: "+fechaVencimiento.toString()+". Vencimiento: "+fechaVencimiento.toString();
+    }
 
-//a) Una Clase Licencia con los atributos: numeroIdentificacion único para la licencia, tipoLicencia que
-//podría ser "Conducir", "Porte de Armas" o "Habilitación Comercial", fechaEmision y fechaVencimiento.
-//        b) Constructor predeterminado que inicializa numeroIdentificacion en 000, tipoLicencia “a definir”,
-//fechaEmision con la fecha actual y fechaVencimiento igual a un mes después de la fecha actual.
-//c) Constructor parametrizado que permite establecer el numeroIdentificacion, tipoLicencia, fechaEmision
-//y fechaVencimiento mediante argumentos.
+    public void validarFechas(LocalDate emision, LocalDate vencimiento){
+        if(emision.isAfter(vencimiento) || emision.isEqual(vencimiento)){
+            this.fechaEmision = LocalDate.now();
+            this.fechaVencimiento = fechaEmision.plusMonths(1);
+        }else{
+            this.fechaEmision = emision;
+            this.fechaVencimiento = vencimiento;
+        }
+    }
+    //TO DO
+    //        f) Un método para determinar si la licencia está vigente en una fechaConsulta dada por el usuario. Debe
+    //retornar true si la fechaConsulta es igual o posterior a fechaEmision y es igual o anterior a
+    //fechaVencimiento. De lo contrario, retorna false.
+}

@@ -12,12 +12,12 @@ public class ex03 {
 //        b) Constructor predeterminado que inicializa numeroIdentificacion en 000, tipoLicencia “a definir”,
 //fechaEmision con la fecha actual y fechaVencimiento igual a un mes después de la fecha actual.
 //c) Constructor parametrizado que permite establecer el numeroIdentificacion, tipoLicencia, fechaEmision
-//y fechaVencimiento mediante argumentos.
+//y fechaVencimiento mediante argumentos. LISTO
 //d) Método toString() para retornar una representación textual completa y legible del objeto Licencia.
 //e) Método auxiliar para validar fechas que comprueba si las fechas de inicio y fin son válidas (la fecha de
 //        inicio debe ser anterior a la fecha de fin y ambas deben estar dentro de los próximos 30 días). Si las
 //fechas no son válidas, se ajustan automáticamente del mismo modo que en el constructor
-//predeterminado.
+//predeterminado. LISTO
 //        f) Un método para determinar si la licencia está vigente en una fechaConsulta dada por el usuario. Debe
 //retornar true si la fechaConsulta es igual o posterior a fechaEmision y es igual o anterior a
 //fechaVencimiento. De lo contrario, retorna false.
