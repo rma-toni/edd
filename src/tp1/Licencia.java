@@ -1,6 +1,7 @@
 package tp1;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Licencia {
 
@@ -36,8 +37,17 @@ public class Licencia {
             this.fechaVencimiento = vencimiento;
         }
     }
-    //TO DO
-    //        f) Un método para determinar si la licencia está vigente en una fechaConsulta dada por el usuario. Debe
-    //retornar true si la fechaConsulta es igual o posterior a fechaEmision y es igual o anterior a
-    //fechaVencimiento. De lo contrario, retorna false.
+
+    public boolean verificarVigencia(LocalDate fecha){
+        return (fecha.isAfter(fechaEmision) || fecha.isEqual(fechaEmision)) && (fecha.isBefore(fechaVencimiento) && fecha.isEqual(fechaVencimiento));
+    }
+
+    public int diasRestantes(LocalDate fechaConsulta){
+        return (int) ChronoUnit.DAYS.between(fechaConsulta, fechaVencimiento);
+    }
+
+    public void simularRenovacion(int cantidadAnios){
+        LocalDate fechaSimulada = fechaVencimiento.plusYears(cantidadAnios);
+        System.out.println("Simulacion: La nueva fecha sera: "+fechaSimulada.toString());
+    }
 }
