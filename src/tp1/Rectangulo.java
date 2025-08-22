@@ -4,6 +4,10 @@ public class Rectangulo {
     private float ancho;
     private float alto;
 
+    //TODO Agregar getters and setters , override to String
+
+    //Al
+
     public Rectangulo(){
         this.ancho = 0.0f;
         this.alto = 0.0f;
