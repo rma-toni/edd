@@ -6,7 +6,6 @@ public class Rectangulo {
 
     //TODO Agregar getters and setters , override to String
 
-    //Al
 
     public Rectangulo(){
         this.ancho = 0.0f;

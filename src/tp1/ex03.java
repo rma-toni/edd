@@ -173,3 +173,6 @@ public class ex03 {
 //    j) Después de crear las licencias, el programa debe solicitar al usuario una "fecha de consulta" (día, mes,
 //    año) para verificar el estado de las licencias. Esta fecha también debe ser validada.
 }
+
+
+//ESTE ME TOCO
