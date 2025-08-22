@@ -4,9 +4,16 @@ public class ex04 {
 }
 
 
-//Desarrollar un programa que funcione como una calculadora básica. El programa debe mostrar un menú al
-//usuario con las siguientes opciones: 1. Sumar, 2. Restar, 3. Multiplicar, 4. Dividir y 5. Salir.
-//El usuario debe poder seleccionar una opción e ingresar los números necesarios para la operación. El
-//programa debe realizar la operación y mostrar el resultado. Después de cada operación (excepto Salir), el
-//menú debe volver a mostrarse hasta que el usuario elija la opción "Salir". Se debe manejar el caso de la
-//división por cero.
+//4) Desarrollar una clase llamada Estudiante para gestionar información académica básica. Esta clase debe
+//tener los siguientes atributos: nombre, lu, notaPrimerParcial, notaSegundoParcial. La clase Estudiante debe
+//incluir los siguientes métodos:
+//a) Un método para establecer el nombre, la lu y las notas del estudiante.
+//b) Un método que devuelva el promedio de las dos notas.
+//c) Un método que devuelva el String “Promoción”, si el promedio es mayor o igual a 7, “Regular” si el
+//promedio esta entre 4 y 7, “Libre” si el promedio es menor a 4.
+//En el programa principal (main) se debe:
+//d) Crear una instancia de la clase Estudiante.
+//        e) Solicitar al usuario que ingrese el nombre, la lu del estudiante y sus dos notas.
+//f)
+//Utilizar los métodos de la clase Estudiante para establecer estos valores.
+//        g) Mostrar el nombre del estudiante, la lu, el promedio y su estado de aprobación.
