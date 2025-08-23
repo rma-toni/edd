@@ -4,6 +4,7 @@ package tp1;
 // Created by Julio Tentor <jtentor@fi.unju.edu.ar>
 //
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
@@ -171,5 +172,19 @@ public class Helper {
     public static String[] getEnumNames(Class<? extends Enum<?>> e) {
         return Arrays.toString(e.getEnumConstants()).replaceAll("^.|.$", "").split(", ");
     }
+    //endregion
+
+    //region String Helpers - Toni:)
+    public static String getString(String inputMessage){
+        System.out.print(inputMessage);
+        String stringValue = scanner.nextLine();
+        return stringValue;
+    }
+    //endregion
+
+    //region LocalDate Helpers - Toni:)
+    public static LocalDate getLocalDate(String inputMessage){
+        return LocalDate.now();
+    }
+    //endregion
 }
-//endregion
