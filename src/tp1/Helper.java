@@ -183,8 +183,22 @@ public class Helper {
     //endregion
 
     //region LocalDate Helpers - Toni:)
-    public static LocalDate getLocalDate(String inputMessage){
-        return LocalDate.now();
+    //TODO Error handling
+    public static LocalDate getLocalDate(String inputMessage, String separator){
+        int day;
+        int month;
+        int year;
+
+        System.out.print(inputMessage);
+        while (true){
+            String[] splitDate = scanner.nextLine().split(separator);
+            day = Integer.parseInt(splitDate[0]);
+            month = Integer.parseInt(splitDate[1]);
+            year = Integer.parseInt(splitDate[2]);
+            break;
+        }
+        LocalDate finalDate = LocalDate.of(year,month,day);
+        return finalDate;
     }
     //endregion
 }
