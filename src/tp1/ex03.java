@@ -63,7 +63,6 @@ public class ex03 {
     }
 
     //Agrege a la clase Helper dos metodos para ayudar con el input de String y LocalDate
-    //TODO Completar local date, no valida que la fecha sea correcta
     static Licencia crearLicencia(){
         int numeroLicencia = Helper.getInteger("Ingrese el numero de licencia : ");
         String tipoLicencia = Helper.getString("Ingrese el tipo de licencia : ");
@@ -80,7 +79,7 @@ public class ex03 {
 //En el programa principal (main) se debe:
 //LISTO i) Solicitar al usuario los datos para crear al menos dos objetos Licencia diferentes, por ejemplo: una
 //licencia vigente y una licencia vencida.
-//TODO i) Se debe realizar las validaciones correspondientes.
+//LISTO i) Se debe realizar las validaciones correspondientes.
 //LISTO j) Después de crear las licencias, el programa debe solicitar al usuario una "fecha de consulta" (día, mes,
 //año) para verificar el estado de las licencias. Esta fecha también debe ser validada.
 //Para cada objeto Licencia creado, el programa debe:

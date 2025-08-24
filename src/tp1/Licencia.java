@@ -17,6 +17,7 @@ public class Licencia {
         this.fechaVencimiento = this.fechaEmision.plusMonths(1);
     }
 
+    //TODO limitar tipos de licencia a predefinidos
     public Licencia(int numeroIdentificacion, String tipoLicencia, LocalDate fechaEmision, LocalDate fechaVencimiento){
         this.numeroIdentificacion = numeroIdentificacion;
         this.tipoLicencia = tipoLicencia;
@@ -29,12 +30,12 @@ public class Licencia {
     }
 
     //TODO PREGUNTA? Proximos 30 dias a que fecha? Entre emision y vencimiento? o desde la fecha actual?
-    //TODO Imprimir el error, el ejercicio no lo pide pero igual
-    //TODO Corregir fechasAntiguas, ya que si se ingresa una fecha de los 30 dias pasados, es negativo, por lo que no detecta el error
     public void validarFechas(LocalDate emision, LocalDate vencimiento){
         boolean fechasInvalidas = emision.isAfter(vencimiento) || emision.isEqual(vencimiento);
         boolean fechasAntiguas = ChronoUnit.DAYS.between(LocalDate.now(), emision) > 30
-                || ChronoUnit.DAYS.between(LocalDate.now(), vencimiento) > 30;
+                || ChronoUnit.DAYS.between(LocalDate.now(), vencimiento) > 30
+                || ChronoUnit.DAYS.between(LocalDate.now(), emision) < 0
+                || ChronoUnit.DAYS.between(LocalDate.now(), vencimiento) < 0;
 
         if (fechasInvalidas || fechasAntiguas) {
             this.fechaEmision = LocalDate.now();

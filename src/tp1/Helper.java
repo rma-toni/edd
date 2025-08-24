@@ -189,16 +189,21 @@ public class Helper {
         int month;
         int year;
 
-        System.out.print(inputMessage);
         while (true){
+
+            System.out.print(inputMessage);
             String[] splitDate = scanner.nextLine().split(separator);
             day = Integer.parseInt(splitDate[0]);
             month = Integer.parseInt(splitDate[1]);
             year = Integer.parseInt(splitDate[2]);
-            break;
+            boolean dayC = day <= 31 && day > 0;
+            boolean monthC = month <= 12 && month > 0;
+            boolean yearC = year < 2100 && year > 1950;
+            if(dayC && monthC && yearC){
+                break;
+            }
         }
-        LocalDate finalDate = LocalDate.of(year,month,day);
-        return finalDate;
+        return LocalDate.of(year,month,day);
     }
     //endregion
 }
