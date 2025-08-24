@@ -46,7 +46,7 @@ public class Licencia {
     }
 
     public boolean verificarVigencia(LocalDate fecha){
-        return (fecha.isAfter(fechaEmision) || fecha.isEqual(fechaEmision)) && (fecha.isBefore(fechaVencimiento) && fecha.isEqual(fechaVencimiento));
+        return (fecha.isAfter(fechaEmision) || fecha.isEqual(fechaEmision)) && (fecha.isBefore(fechaVencimiento) || fecha.isEqual(fechaVencimiento));
     }
 
     public int diasRestantes(LocalDate fechaConsulta){
