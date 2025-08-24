@@ -1,9 +1,5 @@
 package tp1;
 
-//TO-DO
-//1 - Try and Catch en input
-//1 - Modularizar el ingreso de datos
-
 import java.util.Scanner;
 
 public class ex01 {
@@ -11,27 +7,23 @@ public class ex01 {
     public static void main(String[] args) {
 
         Scanner scan = new Scanner(System.in);
-        float ancho = -1.0f;
-        float alto = -1.0f;
-
-        while(ancho < 0.0f){
-            System.out.print("Ingrese el ancho del Rectangulo: ");
-            ancho = scan.nextFloat();
-            if(ancho < 0.0f){
-                System.out.println("Por favor ingrese un valor positivo.");
-            }
-        }
-        while(alto < 0.0f){
-            System.out.print("Ingrese el alto del Rectangulo: ");
-            alto = scan.nextFloat();
-            if(alto < 0.0f){
-                System.out.println("Por favor ingrese un valor positivo.");
-            }
-        }
+        float ancho = getFloat("Ingrese el ancho del Rectangulo: ");
+        float alto = getFloat("Ingrese el ancho del Rectangulo: ");
 
         Rectangulo rect = new Rectangulo(ancho, alto);
         System.out.println("El area del rectangulo es de: " + rect.getArea());
         System.out.println("El perimetro del rectangulo es de: " + rect.getPerimetro());
+    }
+
+    static float getFloat(String inputMsg){
+        float returnValue = -1.0f;
+        while(returnValue < 0.0f){
+            returnValue = Helper.getFloat(inputMsg);
+            if(returnValue < 0.0f){
+                System.out.println("Ingrese un valor positivo");
+            }
+        }
+        return returnValue;
     }
 }
 
