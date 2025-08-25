@@ -26,8 +26,7 @@ public class ex02 {
             float venta = 0;
             switch (option){
                 case 1:
-                    System.out.print("¿Cuantas unidades desea vender?: ");
-                    unidades = scan.nextInt();
+                    unidades = Helper.getInteger("¿Cuantas unidades desea vender?: ");
                     venta = producto.vender(unidades);
                     if(venta == 0.0f){
                         System.out.println("No se pudo realizar la venta.");

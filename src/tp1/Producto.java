@@ -24,7 +24,8 @@ public class Producto {
             stock -= cantidad;
             total = cantidad * precio;
         }else{
-            System.out.println("La cantidad a vender excede el stock.");
+            //System.out.println("La cantidad a vender excede el stock.");
+            System.err.println("La cantidad a vender excede el stock.");
         }
         return total;
     }

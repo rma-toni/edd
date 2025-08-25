@@ -3,7 +3,7 @@ package tp1;
 public class Vehiculo {
     private String marca;
     private String modelo;
-    private int  anio;
+    private int anio;
     private int precio;
 
     //TODO implimentar constructor default
