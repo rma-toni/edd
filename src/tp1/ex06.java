@@ -7,7 +7,7 @@ public class ex06 {
 //6) Escribir un programa que calcule el área y el perímetro de diferentes figuras geométricas utilizando
 //herencia y demostrando polimorfismo.
 //Definir una clase base FiguraGeometrica con los atributos color y nombre, y métodos para:
-//a) Mostrar la información básica de la figura (color y nombre).
+//a) Mostrar la información básica de la figura (color y nombre). LISTO
 //b) Calcular el área (calcularArea), que será implementado en las clases derivadas. Este método debe
 //devolver 0, ya que será sobreescrito en la clase derivada.
 //c) Calcular el perímetro (calcularPerimetro), que también será implementado en las clases derivadas. Al
