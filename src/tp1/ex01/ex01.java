@@ -1,4 +1,6 @@
-package tp1;
+package tp1.ex01;
+
+import tp1.Helper;
 
 import java.util.Scanner;
 

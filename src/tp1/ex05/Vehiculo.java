@@ -1,12 +1,12 @@
-package tp1;
+package tp1.ex05;
+
+//TODO toString
 
 public class Vehiculo {
     private String marca;
     private String modelo;
     private int anio;
     private int precio;
-
-    //TODO implimentar constructor default
 
     public Vehiculo(){
         this.marca = "Sin Marca";

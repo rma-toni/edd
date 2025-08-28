@@ -1,6 +1,8 @@
-package tp1;
+package tp1.ex02;
 
 //TODO realizar comprobaciones de tipos con try and catch al momento del input
+
+import tp1.Helper;
 
 import java.util.Scanner;
 

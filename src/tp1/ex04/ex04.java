@@ -1,4 +1,4 @@
-package tp1;
+package tp1.ex04;
 
 public class ex04 {
 }

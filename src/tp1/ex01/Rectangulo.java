@@ -1,4 +1,4 @@
-package tp1;
+package tp1.ex01;
 
 public class Rectangulo {
     private float ancho;

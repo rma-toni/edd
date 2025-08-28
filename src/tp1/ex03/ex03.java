@@ -1,5 +1,7 @@
 //TODO Completar!
-package tp1;
+package tp1.ex03;
+
+import tp1.Helper;
 
 import java.time.LocalDate;
 import java.util.Scanner;

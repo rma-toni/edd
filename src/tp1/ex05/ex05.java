@@ -1,4 +1,4 @@
-package tp1;
+package tp1.ex05;
 
 public class ex05 {
 }
@@ -8,22 +8,22 @@ public class ex05 {
 //clase debe contener el método llamado obtenerDescripcionBasica() que retornará un String con la marca,
 //modelo y año de fabricación del vehículo. El método calcularAntiguedad(int anioActual) que recibirá el año
 //actual como parámetro y retornará la antigüedad del vehículo en años (calculada como anioActual -
-//        anioFabricacion).
+//        anioFabricacion). LISTO
 //Crear las siguientes clases derivadas
 //a) Moto: con los atributos cilindradaCC y tipoManillar (Deportivo, Cruiser, Enduro, etc.). Método
 //obtenerClasificacionCilindrada(), devuelve"Baja" para cilindradas hasta 250cc, "Media" para cilindradas
-//entre 251cc y 600cc, y "Alta" para cilindradas superiores a 600cc.
+//entre 251cc y 600cc, y "Alta" para cilindradas superiores a 600cc. LISTO
 //        b) Auto: con los atributos numeroPuertas, tipoCombustible (Gasolina, Diesel, Eléctrico),
 //capacidadBaulLitros. Método esFamiliar() devuelve true si numeroPuertas es 4 o 5, y false en cualquier
 //otro caso. Método esEcoAmigable() devuelve true si tipoCombustible es "Eléctrico" o "Híbrido", de lo
-//contrario false
+//contrario false LISTO
 //
 //c) Camion: con los atributos capacidadCarga, numeroEjes, tipoCarroceria (Volquete, Caja Seca,
 //Plataforma). Método requiereLicenciaEspecial() devuelve true si el numeroEjes es mayor a 2, y false en
 //caso contrario. Método describirCapacidadesEspeciales() que devuelve un String diferente según el
 //valor de tipoCarroceria, si es "Volquete", devuelve "Ideal para movimiento de tierras y materiales a
 //granel"; si es "Caja Seca", devuelve "Apto para transporte de mercancías protegidas", en cualquier otro
-//casos devuelve “Útil para todo tipo de carga”.
+//casos devuelve “Útil para todo tipo de carga”. LISTO
 ////En el programa principal (main) se debe permitir al usuario:
 //) Crear una instancia de Auto: El programa debe solicitar al usuario todos los datos necesarios para
 //inicializar tanto los atributos heredados de Vehiculo como los atributos propios de Auto.

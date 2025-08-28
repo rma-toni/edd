@@ -1,4 +1,4 @@
-package tp1;
+package tp1.ex02;
 
 public class Producto {
 
