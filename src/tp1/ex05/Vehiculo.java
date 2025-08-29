@@ -25,4 +25,8 @@ public class Vehiculo {
     public int getAntiguedad(int anioActual){
         return anioActual - anio;
     }
+
+    public String obtenerDescripcionBasica(){
+        return "Marca: "+marca+", Modelo: "+modelo+", Año: "+anio+", Precio: "+precio+". ";
+    }
 }

@@ -3,8 +3,8 @@ package tp1.ex05;
 //TODO Controlar que no se ingrese una cilindrada negativa
 //TODO toString
 public class Moto extends Vehiculo {
-    public int cilindradaCC;
-    public String tipoManillar; //(Deportivo, Cruiser, Enduro, etc.)
+    private int cilindradaCC;
+    private String tipoManillar; //(Deportivo, Cruiser, Enduro, etc.)
 
     public Moto(){
         super();

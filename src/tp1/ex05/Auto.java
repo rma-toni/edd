@@ -34,6 +34,8 @@ public class Auto extends Vehiculo{
         return Objects.equals(tipoCombustible, "Eléctrico") || Objects.equals(tipoCombustible, "Híbrido");
     }
 
+
+
     //region Setters and Getters
 
     public int getNumeroPuertas() {
