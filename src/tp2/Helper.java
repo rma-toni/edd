@@ -183,29 +183,30 @@ public class Helper {
     //endregion
 
     //region LocalDate Helpers - Toni:)
-    //TODO Error handling
     public static LocalDate getLocalDate(String inputMessage, String separator){
         int day;
         int month;
         int year;
 
         while (true){
-
-            System.out.print(inputMessage);
-            String[] splitDate = scanner.nextLine().split(separator);
-            day = Integer.parseInt(splitDate[0]);
-            month = Integer.parseInt(splitDate[1]);
-            year = Integer.parseInt(splitDate[2]);
-            //TODO Si el año es bisiesto
-            //TODO Meses
-            boolean dayC = day <= 31 && day > 0;
-            boolean monthC = month <= 12 && month > 0;
-            boolean yearC = year < 2100 && year > 1950;
-            if(dayC && monthC && yearC){
-                break;
+            try {
+                System.out.print(inputMessage);
+                String[] splitDate = scanner.nextLine().split(separator);
+                day = Integer.parseInt(splitDate[0]);
+                month = Integer.parseInt(splitDate[1]);
+                year = Integer.parseInt(splitDate[2]);
+                //TODO Si el año es bisiesto
+                //TODO Meses
+                boolean dayC = day <= 31 && day > 0;
+                boolean monthC = month <= 12 && month > 0;
+                boolean yearC = year < 2100 && year > 1950;
+                if(dayC && monthC && yearC){
+                    return LocalDate.of(year,month,day);
+                }
+            } catch (Exception e){
+                System.out.println("Ingrese una fecha valida.");
             }
         }
-        return LocalDate.of(year,month,day);
     }
     //endregion
 }
