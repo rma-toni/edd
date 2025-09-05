@@ -9,6 +9,7 @@ public class Participante {
     private String apellido;
     private String correoElectronico;
 
+    //CONSTRUCTOR POR DEFECTO
     public Participante(){
         idParticipante = 0;
         nombre = "Sin definir";
@@ -16,6 +17,7 @@ public class Participante {
         correoElectronico = "Sin definir";
     }
 
+    //CONSTRUCTOR PARAMETRIZADO
     public Participante(int idParticipante, String nombre, String apellido, String correoElectronico){
         this.idParticipante = idParticipante;
         this.nombre = nombre;

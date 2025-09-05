@@ -20,6 +20,8 @@ package tp2.ex01;
 
 //endregion
 
+import tp2.Helper;
+
 public class ex01 {
     public static void main(String[] args) {
 

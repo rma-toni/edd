@@ -1,7 +1,7 @@
 package tp2.ejercicio7;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.LocalDate; //MANEJAR FECHAS
+import java.util.ArrayList; //ARRAYLIST
 
 public class Evento {
 
@@ -22,7 +22,7 @@ public class Evento {
     public Evento(int idEvento, String nombreEvento, LocalDate fecha, String lugar){
         this.idEvento = idEvento;
         this.nombreEvento = nombreEvento;
-        this.fecha = LocalDate.now(); //Se asigna fecha actual por defecto
+        this.fecha = fecha; //Se asigna fecha actual por defecto
         this.lugar = lugar;
         this.participantesInscriptos = new ArrayList<>();
     }
@@ -61,20 +61,23 @@ public class Evento {
         return participantesInscriptos.size();
     }
 
-    //region GETTERS SETTERS
+    //region GETTERS SETTERS TOSTRING
     public int getIdEvento() {
         return idEvento;
-    }
-    public void setIdEvento(int idEvento) {
-        this.idEvento = idEvento;
     }
 
     public String getNombreEvento() {
         return nombreEvento;
     }
 
-    public void setNombreEvento(String nombreEvento) {
-        this.nombreEvento = nombreEvento;
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    @Override
+    public String toString() {
+        String detalles = "ID: "+idEvento+", Nombre del evento: "+nombreEvento+", Fecha: "+fecha+", Lugar: "+lugar;
+        return detalles;
     }
 
     //endregion

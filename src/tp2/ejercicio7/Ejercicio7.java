@@ -1,7 +1,10 @@
 package tp2.ejercicio7;
 
+import tp2.Helper;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Locale;
 
 //7)Desarrollar un programa que permita organizar y gestionar diferentes eventos, controlando los
 //participantes inscriptos en cada uno. Para ello, se debe crear la clase Participante con los atributos:
@@ -16,8 +19,7 @@ import java.util.ArrayList;
 //mismo. LISTO
 //d) Solicitar idEvento e idParticipante para eliminar a dicho participante del evento.
 //e) Obtener la cantidad de participantes en un evento dado, ingresando el nombreEvento.
-//f)
-//Buscar eventos por fecha: Mostrar los detalles de los eventos que coincidan.
+//f)Buscar eventos por fecha: Mostrar los detalles de los eventos que coincidan.
 public class Ejercicio7 {
     public static void main(String[] args) {
 
@@ -33,10 +35,13 @@ public class Ejercicio7 {
             System.out.println("3 - Mostrar participantes de un evento");
             System.out.println("4 - Eliminar participante de un evento");
             System.out.println("5 - Mostrar cantidad de participantes");
+            System.out.println("6 - Buscar eventos por fecha");
+            System.out.println("0 - Salir del programa");
             opcionMenu = Helper.getInteger("Ingrese la opción elegida (NUMERO): ");
             switch (opcionMenu){
                 case 1:
                     control = eventos.add(crearEvento());
+                    //LO DE ABAJO NO ES NECESARIO
                     if (control){
                         System.out.println("Evento creado con éxito");
                     }else{
@@ -59,6 +64,11 @@ public class Ejercicio7 {
                 case 5:
                     cantidadParticipantes(eventos);
                     break;
+                case 6:
+                    buscarEventoFecha(eventos);
+                    break;
+                case 0:
+                    return;
                 default:
                     System.out.println("La opción ingresada es invalida");
             }
@@ -87,7 +97,8 @@ public class Ejercicio7 {
     public static void inscribirParticipante(ArrayList<Evento> eventos){
         int idEvento = Helper.getInteger("Ingrese el ID del evento al que desea inscribir al participante: ");
         boolean eventoExiste = false;
-        for (Evento evento : eventos){
+
+        for (Evento evento : eventos){  //RECORREMOS TODOS LOS EVENTOS DENTRO DEL ARRAYLIST
             if(evento.getIdEvento() == idEvento){
                 evento.agregarParticipante(crearParticipante());
                 eventoExiste = true;
@@ -119,7 +130,7 @@ public class Ejercicio7 {
     public static void eliminarParticipante(ArrayList<Evento> eventos){
         int idEvento = Helper.getInteger("Ingrese el ID del evento para eliminar un participante: ");
         boolean eventoExiste = false;
-        for (Evento evento : eventos){
+        for (Evento evento : eventos){ //RECORREMOS TODOS LOS EVENTOS DENTRO DEL ARRAYLIST
             if(evento.getIdEvento() == idEvento){
                 eventoExiste = true;
                 int idParticipante = Helper.getInteger("Ingrese el ID del participante que desea eliminar: ");
@@ -132,17 +143,30 @@ public class Ejercicio7 {
 
     }
     //CANTIDAD DE PARTICIPANTES (NOMBRE EVENTO)
-    public static void cantidadParticipantes(ArrayList<Evento> eventos){
+    public static int cantidadParticipantes(ArrayList<Evento> eventos){
         String nombre = Helper.getString("Ingrese el nombre del evento para mostrar la cantidad de participantes inscriptos: ");
         boolean control = false;
+        int cantidadParticipantes = 0;
         for(Evento evento : eventos){
-            if(evento.getNombreEvento().equals(nombre)){
+            if(evento.getNombreEvento().equals(nombre)){ //COMPARA QUE LOS STRINGS SEAN IGUALES
                 control = true;
-                System.out.println("La cantidad de participantes es de  "+evento.cantidadParticipantes());
+                cantidadParticipantes = evento.cantidadParticipantes();
+                System.out.println("La cantidad de participantes es de  "+cantidadParticipantes);
             }
         }
         if (!control){
             System.out.println("El evento no existe");
+        }
+        return cantidadParticipantes;
+    }
+
+    public static void buscarEventoFecha(ArrayList<Evento> eventos){
+        LocalDate fecha = Helper.getLocalDate("Ingrese la fecha de busqueda (DD/MM/AAAA): ","/");
+        System.out.println("------ EVENTOS CORRESPONDIENTES A FECHA ------");
+        for (Evento evento : eventos){
+            if (fecha.isEqual(evento.getFecha())){
+                System.out.println(evento.toString());
+            }
         }
     }
     //endregion

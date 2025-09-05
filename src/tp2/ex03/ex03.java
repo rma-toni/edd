@@ -19,6 +19,8 @@ package tp2.ex03;
 //Se espera una correcta modularización entre el código que realiza el ingreso y validación de los datos
 //respecto del código que hace lo que se solicita en el ejercicio.
 
+import tp2.Helper;
+
 public class ex03 {
     public static void main(String[] args) {
         int cantidadPedidos = Helper.getInteger("Ingrese la cantidad de pedidos a ingresar: ");
