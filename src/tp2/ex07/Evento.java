@@ -1,4 +1,4 @@
-package tp2.ejercicio7;
+package tp2.ex07;
 
 import java.time.LocalDate; //MANEJAR FECHAS
 import java.util.ArrayList; //ARRAYLIST

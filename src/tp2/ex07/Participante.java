@@ -1,4 +1,4 @@
-package tp2.ejercicio7;
+package tp2.ex07;
 
 //Para ello, se debe crear la clase Participante con los atributos:
 //idParticipante, nombre, apellido y correo electrónico

@@ -1,10 +1,9 @@
-package tp2.ejercicio7;
+package tp2.ex07;
 
 import tp2.Helper;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Locale;
 
 //7)Desarrollar un programa que permita organizar y gestionar diferentes eventos, controlando los
 //participantes inscriptos en cada uno. Para ello, se debe crear la clase Participante con los atributos:

@@ -1,4 +1,4 @@
-package tp2;
+package helper;
 
 //
 // Created by Julio Tentor <jtentor@fi.unju.edu.ar>
