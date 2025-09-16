@@ -6,15 +6,41 @@ package tp3.ex06;
 public class Entrega {
 
     private String destinatario;
-    private String piso;
+    private int piso;
     private boolean fueEntregado;
 
     //TODO Constructor default
 
-    public Entrega(String destinatario, String piso, boolean fueEntregado){
+    public Entrega(String destinatario, int piso, boolean fueEntregado){
         this.destinatario = destinatario;
         this.piso = piso;
         this.fueEntregado = fueEntregado;
     }
 
+    public void setFueEntregado(boolean fueEntregado) {
+        this.fueEntregado = fueEntregado;
+    }
+
+    public boolean getFueEntregado() {
+        return fueEntregado;
+    }
+
+    public String getDestinatario() {
+        return destinatario;
+    }
+
+    public int getPiso() {
+        return piso;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "Entrega{" +
+                "destinatario='" + destinatario + '\'' +
+                ", piso='" + piso + '\'' +
+                ", fueEntregado=" + fueEntregado +
+                '}';
+    }
 }

@@ -20,10 +20,12 @@ public class ex05 {
 
         System.out.println(stackCaracteres.toString());
         Stack<String> etiquetasGeneradas = generarEtiquetas(stackCaracteres);
-        System.out.println(stackCaracteres.toString());
         System.out.println(etiquetasGeneradas.toString());
+        Stack<Character> stackOriginal = expandirEtiqueta(etiquetasGeneradas);
+        System.out.println(stackOriginal.toString());
     }
 
+    //TODO Verificar que el limite de 9 consecutivos funcione
     //a) generarEtiquetas(Stack <Character> pila) Devuelve una pila de String llamada etiquetas agrupando los
     //caracteres consecutivos iguales y contando su frecuencia, por ejemplo "a3", "b2", ...".
     public static Stack<String> generarEtiquetas(Stack<Character> original){
@@ -41,7 +43,7 @@ public class ex05 {
             System.out.println("DEBUG");
             char caracter = auxiliar.pop();
             original.push(caracter);
-            if (i < capacidadOriginal-1 && Objects.equals(caracter, auxiliar.peek())){
+            if (i < capacidadOriginal-1 && Objects.equals(caracter, auxiliar.peek()) && consecutivas < 10){
                 consecutivas++;
             }else{
                 retorno.push(caracter+Integer.toString(consecutivas));
@@ -77,7 +79,6 @@ public class ex05 {
         return valorRetorno;
     }
 
-    //TODO Completar
     //c) expandirEtiqueta(Stack <String> etiquetas) Reconstruye la pila original a partir de la pila de etiquetas,
     //por ejemplo, si la pila de etiquetas tiene "c4", la pila debe contener 'c', 'c', 'c', 'c'.
     public static Stack<Character> expandirEtiqueta(Stack <String> etiquetas){
@@ -85,19 +86,25 @@ public class ex05 {
         int capacidadEtiquetas = etiquetas.size();
         Stack<String> auxiliar = new Stack<>(capacidadEtiquetas);
         int capacidadOriginal = 0;
-        
+
         for (int i = 0; i < capacidadEtiquetas; i++) {
             String valor = etiquetas.pop();
-            capacidadEtiquetas+=(valor.charAt(1) - '0');
+            capacidadOriginal+=(valor.charAt(1) - '0');
             auxiliar.push(valor);
         }
 
+        Stack<Character> original = new Stack<>(capacidadOriginal);
+
         for (int i = 0; i < capacidadEtiquetas; i++) {
             String valor = auxiliar.pop();
-
+            char caracter = valor.charAt(0);
+            int vecesConsecutivas = valor.charAt(1) - '0';
+            etiquetas.push(valor); //Stack etiquetas de vuelta a la normalidad
+            for (int j = 0; j < vecesConsecutivas; j++) {
+                original.push(caracter);
+            }
         }
-        
-        return null;
+        return original;
     }
 }
 
