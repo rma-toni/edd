@@ -20,16 +20,20 @@ public class ex03 {
         }
         System.out.println(pilaNumeros.toString());
 
+        System.out.println("-------- ELIMINAR ELEMENTOS --------");
         int menor = Helper.getInteger("Ingrese el primer numero: ");
         int mayor = Helper.getInteger("Ingrese el segundo numero: ");
         eliminarElementos(pilaNumeros, menor, mayor);
         System.out.println(pilaNumeros.toString());
+        System.out.println("-------- DUPLICAR PARES --------");
         duplicarPares(pilaNumeros);
         Stack<Integer> pilaNumeros2 = duplicarPares(pilaNumeros);
         System.out.println(pilaNumeros.toString());
         System.out.println(pilaNumeros2.toString());
+        System.out.println("-------- INTERCAMBIAR PRIMERO Y ULTMO --------");
         intercambiarPrimeroUltimo(pilaNumeros);
         System.out.println(pilaNumeros.toString());
+        System.out.println("-------- COMPARAR MITADES --------");
         System.out.println(compararMitades(pilaNumeros));
         System.out.println(pilaNumeros.toString());
     }
@@ -59,29 +63,29 @@ public class ex03 {
     //TODO: Optimizar
     public static Stack<Integer> duplicarPares(Stack<Integer> original){
         int cantidadOriginal = original.size();
-        Stack<Integer> copia = new Stack<>(cantidadOriginal*2);
-        Stack<Integer> aux = new Stack<>(cantidadOriginal);
+        Stack<Integer> auxiliar = new Stack<>(cantidadOriginal*2);
+        Stack<Integer> copia = new Stack<>(cantidadOriginal);
         for (int i = 0; i < cantidadOriginal; i++) {
             int numero = original.pop();
             if (numero % 2 == 0){
+                auxiliar.push(numero);
+                auxiliar.push(numero);
                 copia.push(numero);
-                copia.push(numero);
-                aux.push(numero);
             }else{
+                auxiliar.push(numero);
                 copia.push(numero);
-                aux.push(numero);
             }
         }
-        int copiaCantidad = copia.size();
-        Stack<Integer> aux2 = new Stack<>(copiaCantidad);
+        int copiaCantidad = auxiliar.size();
+        Stack<Integer> stackFinal = new Stack<>(copiaCantidad);
         for (int i = 0; i < copiaCantidad; i++) {
-            aux2.push(copia.pop());
+            stackFinal.push(auxiliar.pop());
         }
 
         for (int i = 0; i < cantidadOriginal; i++) {
-            original.push(aux.pop());
+            original.push(copia.pop());
         }
-        return aux2;
+        return stackFinal;
     }
 
 
@@ -122,37 +126,45 @@ public class ex03 {
 
     //d) Un método que compare la suma de la mitad inferior y la mitad superior de la pila devolviendo cual
     //mitad es la mayor. La pila no debe modificarse.
+
+    //NOTA: Al dividir stacks de tamaño impar, el elemento sobrante correspende a la primer mitad.
+    //      [ 30 , 5 , 22 , 65 , 95 ]
+    //      [(30 , 5 , 22),(65 , 95)]
+    //      PRIMERA MITAD(3) , SEGUNDA MITAD(2)
     public static String compararMitades(Stack<Integer> original){
         String returnValue;
         int cantidadOriginal = original.size();
-        Stack<Integer> copia = new Stack<>(cantidadOriginal);
-        int mitad = cantidadOriginal / 2;
-        int sumaPrimeraMitad = 0;
-        int sumaSegundaMitad = 0;
-        int numero = 0;
-        for (int i = 0; i < cantidadOriginal; i++) {
-            numero = original.pop();
-            if (i < mitad){
-                sumaPrimeraMitad+=numero;
-            }else{
-                sumaSegundaMitad+=numero;
+        if (cantidadOriginal == 1){
+            returnValue = "No se puede comparar mitades, solo hay un elemento";
+        }else{
+            Stack<Integer> copia = new Stack<>(cantidadOriginal);
+            int mitad = cantidadOriginal / 2;
+            int sumaPrimeraMitad = 0;
+            int sumaSegundaMitad = 0;
+            int numero = 0;
+            for (int i = 0; i < cantidadOriginal; i++) {
+                numero = original.pop();
+                if (i < mitad){
+                    sumaSegundaMitad+=numero;
+                }else{
+                    sumaPrimeraMitad+=numero;
+                }
+                copia.push(numero);
             }
-            copia.push(numero);
-        }
 
-        //REARMAR ORIGINAL
-        for (int i = 0; i < cantidadOriginal; i++) {
-            original.push(copia.pop());
-        }
+            //REARMAR ORIGINAL
+            for (int i = 0; i < cantidadOriginal; i++) {
+                original.push(copia.pop());
+            }
 
-        if (sumaPrimeraMitad > sumaSegundaMitad){
-            returnValue = "Primera Mitad";
-        } else if (sumaPrimeraMitad < sumaSegundaMitad) {
-            returnValue = "Segunda Mitad";
-        } else{
-            returnValue = "Iguales";
+            if (sumaPrimeraMitad > sumaSegundaMitad){
+                returnValue = "La suma de la PRIMERA MITAD es mayor";
+            } else if (sumaPrimeraMitad < sumaSegundaMitad) {
+                returnValue = "La suma de la SEGUNDA MITAD es mayor";
+            } else{
+                returnValue = "Iguales";
+            }
         }
-
         return returnValue;
     }
 }

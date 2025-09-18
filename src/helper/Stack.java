@@ -134,7 +134,7 @@ public class Stack<ELEMENT> {
         StringBuilder sb = new StringBuilder();
         sb.append("[" + this.data[0].toString());
         for (int i = 1; i < this.size(); ++i) {
-            sb.append(", " +"\n"+ this.data[i].toString());
+            sb.append(", " + this.data[i].toString());
         }
         sb.append("]");
         return sb.toString();
