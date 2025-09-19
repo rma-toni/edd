@@ -63,28 +63,34 @@ public class ex03 {
     //TODO: Optimizar
     public static Stack<Integer> duplicarPares(Stack<Integer> original){
         int cantidadOriginal = original.size();
-        Stack<Integer> auxiliar = new Stack<>(cantidadOriginal*2);
-        Stack<Integer> copia = new Stack<>(cantidadOriginal);
-        for (int i = 0; i < cantidadOriginal; i++) {
-            int numero = original.pop();
-            if (numero % 2 == 0){
-                auxiliar.push(numero);
-                auxiliar.push(numero);
-                copia.push(numero);
-            }else{
-                auxiliar.push(numero);
-                copia.push(numero);
+        Stack<Integer> stackFinal;
+        if (cantidadOriginal != 0){
+            Stack<Integer> auxiliar = new Stack<>(cantidadOriginal*2);
+            Stack<Integer> copia = new Stack<>(cantidadOriginal);
+            for (int i = 0; i < cantidadOriginal; i++) {
+                int numero = original.pop();
+                if (numero % 2 == 0){
+                    auxiliar.push(numero);
+                    auxiliar.push(numero);
+                    copia.push(numero);
+                }else{
+                    auxiliar.push(numero);
+                    copia.push(numero);
+                }
             }
-        }
-        int copiaCantidad = auxiliar.size();
-        Stack<Integer> stackFinal = new Stack<>(copiaCantidad);
-        for (int i = 0; i < copiaCantidad; i++) {
-            stackFinal.push(auxiliar.pop());
+            int copiaCantidad = auxiliar.size();
+            stackFinal = new Stack<>(copiaCantidad);
+            for (int i = 0; i < copiaCantidad; i++) {
+                stackFinal.push(auxiliar.pop());
+            }
+
+            for (int i = 0; i < cantidadOriginal; i++) {
+                original.push(copia.pop());
+            }
+        }else{
+            stackFinal = new Stack<Integer>();
         }
 
-        for (int i = 0; i < cantidadOriginal; i++) {
-            original.push(copia.pop());
-        }
         return stackFinal;
     }
 
@@ -93,34 +99,37 @@ public class ex03 {
     //la cima).
     public static void intercambiarPrimeroUltimo(Stack<Integer> original){
         int capacidadOriginal = original.size();
-        if (capacidadOriginal == 1 ){
-            System.out.println("Solo hay un elemento.");
-            return;
-        }
-        Stack<Integer> copia = new Stack<>(capacidadOriginal);
-        int primerNumero = 0;
-        int ultimoNumero = 0;
-        int numero;
-        for (int i = 0; i < capacidadOriginal; i++) {
-            numero = original.pop();
-            if(i == 0){
-                ultimoNumero = numero;
-            }else if(i == capacidadOriginal-1){
-                primerNumero = numero;
+        if (capacidadOriginal != 1 && capacidadOriginal != 0 ){
+            Stack<Integer> copia = new Stack<>(capacidadOriginal);
+            int primerNumero = 0;
+            int ultimoNumero = 0;
+            int numero;
+            for (int i = 0; i < capacidadOriginal; i++) {
+                numero = original.pop();
+                if(i == 0){
+                    ultimoNumero = numero;
+                }else if(i == capacidadOriginal-1){
+                    primerNumero = numero;
+                }
+                copia.push(numero);
             }
-            copia.push(numero);
+
+            for (int i = 0; i < capacidadOriginal; i++) {
+                numero = copia.pop();
+                if(i == 0){
+                    original.push(ultimoNumero);
+                }else if(i == capacidadOriginal-1){
+                    original.push(primerNumero);
+                }else{
+                    original.push(numero);
+                }
+            }
+        } else if (capacidadOriginal == 1) {
+            System.out.println("Solo hay un elemento.");
+        }else{
+            System.out.println("La lista esta vacia.");
         }
 
-        for (int i = 0; i < capacidadOriginal; i++) {
-            numero = copia.pop();
-            if(i == 0){
-                original.push(ultimoNumero);
-            }else if(i == capacidadOriginal-1){
-                original.push(primerNumero);
-            }else{
-                original.push(numero);
-            }
-        }
     }
 
 
@@ -132,11 +141,11 @@ public class ex03 {
     //      [(30 , 5 , 22),(65 , 95)]
     //      PRIMERA MITAD(3) , SEGUNDA MITAD(2)
     public static String compararMitades(Stack<Integer> original){
-        String returnValue;
+        String returnValue = "Lista vacia";
         int cantidadOriginal = original.size();
         if (cantidadOriginal == 1){
             returnValue = "No se puede comparar mitades, solo hay un elemento";
-        }else{
+        }else if(cantidadOriginal != 0){
             Stack<Integer> copia = new Stack<>(cantidadOriginal);
             int mitad = cantidadOriginal / 2;
             int sumaPrimeraMitad = 0;
