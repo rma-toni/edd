@@ -12,6 +12,12 @@ public class ex03 {
     public static void main(String[] args) {
         Random rand = new Random();
         int cantidad = Helper.getInteger("Ingrese la cantidad de numeros que contendra la pila: ");
+                
+        if (cantidad==0){
+            System.out.println("El stack no tiene elementos");
+            return;
+        }
+
         Stack<Integer> pilaNumeros = new Stack<>(cantidad);
 
         //RELLENAR STACK
