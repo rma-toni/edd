@@ -10,4 +10,11 @@ package tp4.ex04;
 //d) Generar un arreglo con las ciudades afectadas con alertas de nivel 4 o 5.
 
 public class ex04 {
+
+    public static void main(String[] args) {
+
+
+
+    }
+
 }

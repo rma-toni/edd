@@ -13,6 +13,8 @@ package tp4.ex03;
 //b) Determinar la palabra más larga (en cantidad de letras) de esa categoría.
 //c) Reconstruir y mostrar la frase original de cada categoría, respetando el orden de llegada. PREGUNTAR
 
+//TODO reconstruir original
+
 import helper.Helper;
 import helper.Queue;
 
@@ -80,6 +82,7 @@ public class ex03 {
                 } else {
                     largas.add(palabra);
                 }
+                frase.add(palabra);
             } catch (Exception e) {
                 System.err.println(e.toString());
             }
