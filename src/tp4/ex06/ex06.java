@@ -25,6 +25,7 @@ public class ex06 {
         while (true){
             System.out.println("1 - Crear registro");
             System.out.println("2 - Procesar registros");
+            System.out.println("3 - Mostras registros que corresponden a un motivo.");
             System.out.println("0 - Salir");
             opcion = Helper.getInteger("Ingrese la opcion elegida: ");
             switch (opcion){
@@ -37,8 +38,12 @@ public class ex06 {
                     break;
                 case 2:
                     Queue<Ingreso> noAutorizados = buscarNoAutorizados(ingresos);
+                    System.out.println(noAutorizados.toString());
+                    break;
+                case 3:
                     break;
                 case 0:
+
                     return;
                 default:
                     System.out.println("La opcion ingresada es invalida.");
@@ -72,6 +77,10 @@ public class ex06 {
             }
         }
         return noAutorizados;
+    }
+
+    public static void mostrarIngresosMotivo(Queue<Ingreso> queue){
+        
     }
 }
 
