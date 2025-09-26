@@ -1,4 +1,4 @@
-package tp4;
+package tp4.ex01;
 
 //1) Realizar el ingreso de N enteros en una cola. Además, pedir al usuario el ingreso de un número que será
 //considerado como máximo. Los elementos de la cola que excedan el valor máximo deberán ser retirados y

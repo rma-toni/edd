@@ -4,7 +4,10 @@ package helper;
 // Created by Julio Tentor <jtentor@fi.unju.edu.ar>
 //
 
+import org.w3c.dom.html.HTMLBRElement;
+
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
@@ -182,8 +185,7 @@ public class Helper {
     }
     //endregion
 
-    //region LocalDate Helpers - Toni:)
-    //TODO Error handling
+    //region LocalDate LocalTime Helpers - Toni:)
     public static LocalDate getLocalDate(String inputMessage, String separator){
         int day;
         int month;
@@ -206,6 +208,44 @@ public class Helper {
             }
         }
         return LocalDate.of(year,month,day);
+    }
+
+    public static LocalTime getLocalTime(){
+        int hour;
+        int minute;
+        while (true) {
+
+            hour = getInteger("Ingrese la hora (0 a 23): ");
+            minute = getInteger("Ingrese los minutos (0 a 59): ");
+
+            if (!((hour <= 23 && hour >= 0) && (minute <= 59 && minute >= 0))){
+                System.out.println("Ingrese un horario valido");
+            }else{
+                break;
+            }
+        }
+
+        return LocalTime.of(hour,minute);
+    }
+    //endregion
+
+    //region Boolean Helpers - Toni:)
+    public static Boolean getBoolean(String inputMessage){
+        System.out.println(inputMessage);
+        int option;
+        while (true){
+            System.out.println("1 - True");
+            System.out.println("0 - False");
+            option = Helper.getInteger("Ingrse la opcion elegida: ");
+            switch (option) {
+                case 1:
+                    return true;
+                case 0:
+                    return false;
+                default:
+                    System.out.println("Valor invalido.");
+            }
+        }
     }
     //endregion
 }

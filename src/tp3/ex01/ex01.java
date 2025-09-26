@@ -1,8 +1,7 @@
 package tp3.ex01;
 
-import helper.Stack_;
-
 import java.util.Random;
+import helper.Stack;
 
 //Escribir un programa que genere 20 números aleatorios y los guarde en una pila. Luego, quitar los
 //elementos de la pila y guardar los números pares en una nueva pila y los impares en otra. Calcular y
@@ -19,9 +18,9 @@ public class ex01 {
     public static void main(String[] args) {
         Random rand = new Random();
         int capacidad = 20;
-        Stack_<Integer> numerosAleatorios = new Stack_<>(capacidad);
-        Stack_<Integer> numerosPares = new Stack_<>(capacidad);
-        Stack_<Integer> numerosImpares = new Stack_<>(capacidad);
+        Stack<Integer> numerosAleatorios = new Stack<>(capacidad);
+        Stack<Integer> numerosPares = new Stack<>(capacidad);
+        Stack<Integer> numerosImpares = new Stack<>(capacidad);
 
         //region RELLENAR STACK
         for (int i = 0; i < capacidad; i++) {
@@ -33,7 +32,7 @@ public class ex01 {
         }
         //endregion
         System.out.println("---------- PILA ORIGINAL (ANTES)------------");
-        numerosAleatorios.print();
+        System.out.println(numerosAleatorios.toString());
 
         //region SEPARAR PARES E IMPARES
         separarParesImpares(numerosAleatorios,numerosPares,numerosImpares);
@@ -41,17 +40,17 @@ public class ex01 {
 
         //region PRINTS
         System.out.println("---------- PILA ORIGINAL (DESPUES)------------");
-        numerosAleatorios.print();
+        System.out.println(numerosAleatorios.toString());
         System.out.println("---------- PILA PARES------------");
-        numerosPares.print();
+        System.out.println(numerosPares.toString());
         System.out.println("---------- PILA IMPARES------------");
-        numerosImpares.print();
+        System.out.println(numerosImpares.toString());
         //endregion
     }
 
-    public static void separarParesImpares(Stack_<Integer> original, Stack_<Integer> pares, Stack_<Integer> impares){
-        Stack_<Integer> copia = new Stack_<>(original.length());
-        int capacidad = original.length();
+    public static void separarParesImpares(Stack<Integer> original, Stack<Integer> pares, Stack<Integer> impares){
+        Stack<Integer> copia = new Stack<>(original.size());
+        int capacidad = original.size();
         int numero;
         //SEPARAR NUMEROS
         for (int i = 0; i < capacidad; i++) {
