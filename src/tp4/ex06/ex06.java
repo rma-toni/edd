@@ -24,6 +24,7 @@ public class ex06 {
         Queue<Ingreso> ingresos = new Queue<>(100);
 
         while (true){
+            System.out.println("-------------- MENU --------------");
             System.out.println("1 - Crear registro");
             System.out.println("2 - Procesar registros");
             System.out.println("3 - Mostras registros que corresponden a un motivo.");
@@ -35,12 +36,16 @@ public class ex06 {
                     try{
                         ingresos.add(crearIngreso());
                     }catch (Exception e){
-                        System.err.println(e.toString());
+                        System.err.println(e.getMessage());
                     }
                     break;
                 case 2:
                     Queue<Ingreso> noAutorizados = buscarNoAutorizados(ingresos);
-                    System.out.println(noAutorizados.toString());
+                    if (noAutorizados.isEmpty()){
+                        System.out.println("No hay ingresos no autorizados.");
+                    }else{
+                        System.out.println(noAutorizados.toString());
+                    }
                     break;
                 case 3:
                     mostrarCantidadIngresosMotivo(ingresos);
@@ -83,7 +88,7 @@ public class ex06 {
                 }
                 queue.add(ingreso);//vuelvo a agregar el ingreso por que necesitare la cola para otras cosas
             } catch (Exception e) {
-                System.err.println(e.toString());
+                System.err.println(e.getMessage());
             }
         }
         return noAutorizados;
@@ -96,11 +101,16 @@ public class ex06 {
         Ingreso ingreso;
 
         for (int i = 0; i < cantidad; i++) {
-            ingreso = queue.remove();
-            if (ingreso.getMotivo().equals(motivoBusqueda)){
-                contador++;
+            try {
+                ingreso = queue.remove();
+                if (ingreso.getMotivo().equals(motivoBusqueda)){
+                    contador++;
+                }
+                queue.add(ingreso);
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
             }
-            queue.add(ingreso);
+
         }
 
         System.out.println("La cantidad de ingresos que corresponden al motivo es de "+contador);
@@ -114,14 +124,20 @@ public class ex06 {
         int cantidad = queue.size();
         Ingreso ingreso;
 
+        //TODO Try and catch
         for (int i = 0; i < cantidad; i++) {
-            ingreso = queue.remove();
-            if (ingreso.getDni() == DNI){
-                if (!ingreso.getAutorizado()){
-                    ingresoValido = false;
+            try{
+                ingreso = queue.remove();
+                if (ingreso.getDni() == DNI){
+                    if (!ingreso.getAutorizado()){
+                        ingresoValido = false;
+                    }
                 }
+                queue.add(ingreso);
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
             }
-            queue.add(ingreso);
+
         }
 
         return ingresoValido;

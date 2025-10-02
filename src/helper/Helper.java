@@ -220,6 +220,7 @@ public class Helper {
 
             if (!((hour <= 23 && hour >= 0) && (minute <= 59 && minute >= 0))){
                 System.out.println("Ingrese un horario valido");
+
             }else{
                 break;
             }
