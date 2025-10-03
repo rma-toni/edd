@@ -116,13 +116,11 @@ public class Stack<ELEMENT> {
     public int size() {
         return this.count;
     }
-
     //endregion
 
 
 
     //region Override Object basic methods
-
     @Override
     public String toString() {
 
@@ -140,6 +138,4 @@ public class Stack<ELEMENT> {
         return sb.toString();
     }
     //endregion
-
-
 }

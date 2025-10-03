@@ -7,8 +7,6 @@ package tp4.ex01;
 //Finalmente, crear una nueva cola que solo contenga aquellos números que no superen al máximo
 //ingresado.
 
-//TODO Cambiar tipo de excepciones o agregar en el caso de que corresponda
-//TODO cambiar record a class
 
 import helper.Helper;
 import helper.Queue;
