@@ -37,7 +37,9 @@ public class ex01 {
 
             switch (option){
                 case 1:
-                    System.out.println("En desarrollo.");
+                    int item = Helper.getInteger("Ingrese el numero que desea agregar: ");
+                    int index = Helper.getInteger("Ingrese la posicion en la que desea agregarlo: ");
+                    debugList.addAt(index,item);
                     break;
                 case 0:
                     return;

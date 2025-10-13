@@ -76,6 +76,19 @@ public class SimpleLinkedList<ELEMENT> implements ILinkedList<ELEMENT> {
         ++this.count;
     }
 
+    //Insert the element in the indicated position
+    public void addAt(int index, ELEMENT item){
+
+        Node<ELEMENT> aux = this.head;
+        for (int i = 0; i < index-2; i++) {
+            aux = aux.next;
+            System.out.println(aux.item);
+        }
+
+        aux.next = new Node<>(item, aux.next);
+
+    }
+
     public void addLastRookieVersion(ELEMENT item) {
         if (this.count == 0) {
             this.head = this.tail = new Node<ELEMENT>(item, null);
@@ -133,9 +146,7 @@ public class SimpleLinkedList<ELEMENT> implements ILinkedList<ELEMENT> {
         return item;
     }
 
-    //Insert the element in the indicated position
-    public void addAt(int index){
-    }
+
     //endregion
 
     //region Object Methods
