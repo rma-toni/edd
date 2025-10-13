@@ -78,15 +78,25 @@ public class SimpleLinkedList<ELEMENT> implements ILinkedList<ELEMENT> {
 
     //Insert the element in the indicated position
     public void addAt(int index, ELEMENT item){
-
-        Node<ELEMENT> aux = this.head;
-        for (int i = 0; i < index-2; i++) {
-            aux = aux.next;
-            System.out.println(aux.item);
+        if (this.count == 0) {
+            throw new RuntimeException("La lista está vacía...");
+        }
+        if (this.count+1 < index){
+            throw new IllegalStateException("El indice indicado supera el limite maximo...");
         }
 
-        aux.next = new Node<>(item, aux.next);
+        Node<ELEMENT> aux = this.head;
 
+        if (index == 1){
+            this.head = new Node<>(item, aux);
+            ++this.count;
+        }else{
+            for (int i = 0; i < index-2; i++) {
+                aux = aux.next;
+            }
+            aux.next = new Node<>(item, aux.next);
+            ++this.count;
+        }
     }
 
     public void addLastRookieVersion(ELEMENT item) {
@@ -126,6 +136,40 @@ public class SimpleLinkedList<ELEMENT> implements ILinkedList<ELEMENT> {
         return item;
     }
 
+    public ELEMENT removeAt(int index){
+        if (this.count == 0) {
+            throw new RuntimeException("La lista está vacía...");
+        }
+        if (this.count < index){
+            throw new IllegalStateException("El indice indicado supera el limite maximo...");
+        }
+
+        ELEMENT returnValue = null;
+
+        if (index == 1){
+            returnValue = this.head.item;
+            this.head = this.head.next;
+        } else if (index == count) {
+            returnValue = this.tail.item;
+            Node<ELEMENT> aux = this.head;
+            while (aux.next.next != null) {
+                aux = aux.next;
+            }
+            this.tail = aux;
+            this.tail.next = null;
+        } else {
+            Node<ELEMENT> aux = this.head;
+            for (int i = 0; i < index-2; i++) {
+                aux = aux.next;
+                System.out.println(aux.item);
+            }
+            returnValue = aux.next.item;
+            aux.next = aux.next.next;
+        }
+        --this.count;
+        return returnValue;
+    }
+
     // Removes and returns the last element from this list.
     public ELEMENT removeLast() {
         if (this.count == 0) {
@@ -163,7 +207,7 @@ public class SimpleLinkedList<ELEMENT> implements ILinkedList<ELEMENT> {
 
         sb.append("[" + this.head.item.toString());
         for (Node<ELEMENT> skip = this.head.next; skip != null; skip = skip.next) {
-            sb.append(", " + skip.item.toString());
+            sb.append("\n, " + skip.item.toString());
         }
         sb.append("]");
 
