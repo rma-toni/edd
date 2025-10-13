@@ -1,4 +1,4 @@
-package tp5;
+package tp5.ex01;
 
 //1) Dada la implementación de Lista Enlazada Simple estudiada en clases, agregarle métodos genéricos que
 //permitan:
@@ -15,7 +15,6 @@ import helper.SimpleLinkedList;
 import helper.Helper;
 
 import java.time.LocalDate;
-import java.util.Locale;
 import java.util.Random;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
