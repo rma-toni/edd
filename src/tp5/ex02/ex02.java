@@ -71,7 +71,9 @@ public class ex02
     public static DoubleLinkedList<LibrosEscritos> ordenarPorCantidadLibrosEscritos(DoubleLinkedList<Libro> libros){
         DoubleLinkedList<LibrosEscritos> librosEscritos = new DoubleLinkedList<>();
 
+        for (Libro libro : libros){
 
+        }
 
         return librosEscritos;
     }
