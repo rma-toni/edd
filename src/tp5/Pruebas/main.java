@@ -8,7 +8,6 @@ import java.util.Random;
 
 
 public class main {
-
     public static void main(String[] args) {
         Random rand = new Random();
         SimpleLinkedList<Integer> numeros = new SimpleLinkedList<>();
@@ -68,16 +67,34 @@ public class main {
         }
         return suma;
     }
-    public static SimpleLinkedList<Integer> mismaLista(SimpleLinkedList<Integer> numeros){
+    public static SimpleLinkedList<Integer> mismaLista(SimpleLinkedList<Integer> numeros) {
+        SimpleLinkedList<Integer> copia = new SimpleLinkedList<>();
         SimpleLinkedList<Integer> nuevaLista = new SimpleLinkedList<>();
-        SimpleLinkedList<Integer> aux = new SimpleLinkedList<>();
-        for(int num:numeros){
-            aux.addLast(num);
+
+        // Copiamos los valores a una lista temporal para no modificar la original
+        for (Integer num : numeros) {
+            copia.addLast(num);
         }
-        for(int num:aux){
-            nuevaLista.addLast(num);
+        while (copia.size() > 0) {
+            int menor = Integer.MAX_VALUE;
+            int posMenor = 0;
+            int pos = 0;
+            for (Integer num : copia) {
+                if (num < menor) {
+                    menor = num;
+                    posMenor = pos;
+                }
+                pos++;
+            }
+
+            // Agregar el menor a la nueva lista ordenada
+            nuevaLista.addLast(menor);
+
+            // Eliminar ese menor de la lista copia
+            copia.removeAt(posMenor);
         }
         return nuevaLista;
     }
-
 }
+
+

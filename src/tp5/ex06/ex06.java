@@ -11,6 +11,8 @@ package tp5.ex06;
 import helper.Helper;
 import helper.SimpleLinkedList;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class ex06 {
@@ -76,7 +78,7 @@ public class ex06 {
         return returnValue;
     }
 
-    public static SimpleLinkedList<Integer> ordenarLista(SimpleLinkedList<Integer> original){
+    /*public static SimpleLinkedList<Integer> ordenarLista(SimpleLinkedList<Integer> original){
         SimpleLinkedList<Integer> returnList = new SimpleLinkedList<>();
         SimpleLinkedList<Integer> copia = new SimpleLinkedList<>();
 
@@ -107,5 +109,14 @@ public class ex06 {
             }
         }
         return returnList;
+    }*/
+
+    public static SimpleLinkedList<Integer> ordenarLista(SimpleLinkedList<Integer> original) {
+        ArrayList<Integer> aux = new ArrayList<>();
+        for (int num : original) aux.add(num);
+        Collections.sort(aux);
+        SimpleLinkedList<Integer> sorted = new SimpleLinkedList<>();
+        for (int num : aux) sorted.addLast(num);
+        return sorted;
     }
 }
