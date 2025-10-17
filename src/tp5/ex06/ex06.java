@@ -33,6 +33,11 @@ public class ex06 {
         System.out.println("------------- SUMA VALORES INTERMEDIOS -------------");
         int inf = Helper.getInteger("Ingrese el limite inferior: ");
         int sup = Helper.getInteger("Ingrese el limite superior: ");
+        while(inf > sup){
+            System.out.println("El valor minimo no puede ser mayor. Intentelo de nuevo");
+            inf = Helper.getInteger("ingrese valor minimo: ");
+            sup = Helper.getInteger("Ingrese valor maximo: ");
+        }
         int sumaIntermedios = sumaValoresIntermedios(randomNumbers, inf, sup);
         System.out.println("La suma de los valores intermedios es: "+sumaIntermedios);
 
