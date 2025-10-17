@@ -70,9 +70,10 @@ public class ex02
 
     public static DoubleLinkedList<LibrosEscritos> ordenarPorCantidadLibrosEscritos(DoubleLinkedList<Libro> libros){
         DoubleLinkedList<LibrosEscritos> librosEscritos = new DoubleLinkedList<>();
+        String autor;
 
         for (Libro libro : libros){
-
+            autor = libro.getNombreAutor();
         }
 
         return librosEscritos;

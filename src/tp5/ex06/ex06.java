@@ -81,7 +81,12 @@ public class ex06 {
 
         while (copia.size() != 0){
             // Buscar el valor mínimo en la lista
-            int min = copia.removeFirst();
+            int min;
+            try {
+                min = copia.removeFirst();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
             boolean isLesser = true;
             for (int num : copia) {
                 if (num < min) {
