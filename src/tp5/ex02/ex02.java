@@ -11,6 +11,7 @@ package tp5.ex02;
 
 import helper.DoubleLinkedList;
 import helper.Helper;
+import helper.SimpleLinkedList;
 
 public class ex02
 {
@@ -19,12 +20,17 @@ public class ex02
         DoubleLinkedList<Libro> listaLibros = new DoubleLinkedList<>();
 
         listaLibros.addLast(new Libro("Cien años de soledad", "Gabriel Garcia Marquez", 1967, "Novela"));
+        listaLibros.addLast(new Libro("Cien años de soledad", "Gabriel Garcia Marquez", 1967, "Novela"));
+        listaLibros.addLast(new Libro("1984", "George Orwel", 1949, "Ciencia ficcion"));
         listaLibros.addLast(new Libro("1984", "George Orwel", 1949, "Ciencia ficcion"));
         listaLibros.addLast(new Libro("Orgullo y prejuicio", "Jane Austen", 1813, "Novela"));
         listaLibros.addLast(new Libro("El nombre de la rosa", "Umberto Eco", 1980, "Misterio"));
         listaLibros.addLast(new Libro("Los juegos del hambre", "Suzanne Collins", 2008, "Aventura"));
         listaLibros.addLast(new Libro("Tokio blues (Norwegian Wood)", "Haruki Murakami", 1987, "Romance"));
         listaLibros.addLast(new Libro("Fahrenheit 451", "Ray Bradbury", 1953, "Ciencia ficcion"));
+        listaLibros.addLast(new Libro("El alquimista", "Paulo Coelho", 1988, "Aventura"));
+        listaLibros.addLast(new Libro("El alquimista", "Paulo Coelho", 1988, "Aventura"));
+        listaLibros.addLast(new Libro("El alquimista", "Paulo Coelho", 1988, "Aventura"));
         listaLibros.addLast(new Libro("El alquimista", "Paulo Coelho", 1988, "Aventura"));
         listaLibros.addLast(new Libro("Crónica de una muerte anunciada", "Gabriel Garcia Marquez", 1981, "Novela"));
         listaLibros.addLast(new Libro("La sombra del viento", "Carlos Ruiz Zafon", 2001, "Misterio"));
@@ -38,7 +44,8 @@ public class ex02
         DoubleLinkedList<Libro> listaGenero = buscarGenero(listaLibros, genero);
         System.out.println(listaGenero.toString());
         System.out.println("----------- LISTA POR AUTORES / LIBROS ESCRITOS -----------");
-        DoubleLinkedList<LibrosEscritos> listaAutores = null;
+        DoubleLinkedList<LibrosEscritos> listaAutores = ordenarPorCantidadLibrosEscritos(listaLibros);
+        System.out.println(listaAutores);
 
     }
 
@@ -70,12 +77,58 @@ public class ex02
 
     public static DoubleLinkedList<LibrosEscritos> ordenarPorCantidadLibrosEscritos(DoubleLinkedList<Libro> libros){
         DoubleLinkedList<LibrosEscritos> librosEscritos = new DoubleLinkedList<>();
-        String autor;
+        String nombreAutor;
 
-        for (Libro libro : libros){
-            autor = libro.getNombreAutor();
+        for (Libro libro1 : libros){
+            nombreAutor = libro1.getNombreAutor();
+            boolean yaAgregado = false;
+            for (LibrosEscritos autor : librosEscritos){
+                if (autor.getNombreAutor().equals(nombreAutor)){
+                    yaAgregado = true;
+                }
+            }
+            if (yaAgregado){
+                for (LibrosEscritos autor : librosEscritos){
+                    if (autor.getNombreAutor().equals(nombreAutor)){
+                        autor.addBook();
+                    }
+                }
+            }else{
+                librosEscritos.addLast(new LibrosEscritos(nombreAutor, 1));
+            }
+
         }
 
-        return librosEscritos;
+        //region ORDENAR
+        DoubleLinkedList<LibrosEscritos> returnList = new DoubleLinkedList<>();
+        DoubleLinkedList<LibrosEscritos> copia = new DoubleLinkedList<>();
+        for (LibrosEscritos autor : librosEscritos) {
+            copia.addLast(autor);
+        }
+
+        while (copia.size() != 0){
+            // Buscar el valor mínimo en la lista
+            LibrosEscritos min;
+            try {
+                min = copia.removeFirst();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            boolean isLesser = true;
+            for (LibrosEscritos autor : copia) {
+                if (autor.getLibrosEscritos() < min.getLibrosEscritos()) {
+                    isLesser = false;
+                    break;
+                }
+            }
+            if (!isLesser){
+                copia.addLast(min);
+            }else{
+                returnList.addLast(min);
+            }
+        }
+        //endregion
+
+        return returnList;
     }
 }

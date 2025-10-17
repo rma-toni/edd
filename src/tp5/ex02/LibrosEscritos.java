@@ -13,4 +13,20 @@ public class LibrosEscritos {
     public void addBook(){
         librosEscritos++;
     }
+
+    public String getNombreAutor() {
+        return nombreAutor;
+    }
+
+    public int getLibrosEscritos() {
+        return librosEscritos;
+    }
+
+    @Override
+    public String toString() {
+        return "LibrosEscritos{" +
+                "nombreAutor='" + nombreAutor + '\'' +
+                ", librosEscritos=" + librosEscritos +
+                '}';
+    }
 }
