@@ -15,6 +15,9 @@ public class Stack<ELEMENT> {
     }
 
     public ELEMENT pop(){
+        if (this.size() <= 0) {
+            throw new IllegalStateException("Cola vacía ...");
+        }
         return  this.data.removeLast();
     }
 
@@ -22,7 +25,11 @@ public class Stack<ELEMENT> {
         return this.data.size();
     }
 
-    //todo PEEK
+    public ELEMENT peek(){
+        ELEMENT returnValue = data.removeLast();
+        data.addLast(returnValue);
+        return returnValue;
+    }
 
     @Override
     public String toString() {

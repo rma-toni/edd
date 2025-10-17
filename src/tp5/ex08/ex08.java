@@ -1,10 +1,14 @@
 //Codificar una implementación de la clase Stack<T> (Pila genérica) utilizando en la estructura interna una
 //lista genérica. Usando dicha implementación cargar una pila con números enteros aleatorios y duplicar los
 //valores pares de la pila. El orden de los elementos en la pila no debe alterarse.
-package tp8.ex08;
+package tp5.ex08;
 
 import helper.Helper;
 import tp5.ex08.Stack;
+
+import java.util.Random;
+
+//TODO Excepciones
 
 public class ex08 {
 
@@ -12,12 +16,16 @@ public class ex08 {
 
         int n = Helper.getInteger("Ingrese la cantidad de numeros enteros a generer: ");
         Stack<Integer> stackList = new Stack<>();
+        Random rand = new Random();
 
         for (int i = 0; i < n; i++) {
-
+            stackList.push(rand.nextInt(101));
         }
 
+        System.out.println(stackList.toString());
         duplicarPares(stackList);
+        System.out.println(stackList.toString());
+
     }
 
 
@@ -26,10 +34,14 @@ public class ex08 {
         int cantidad = original.size();
 
         for (int i = 0; i < cantidad; i++) {
-            copia.push(original.pop());
+            try {
+                copia.push(original.pop());
+            }catch (Exception e){
+                System.err.println(e.getMessage());
+            }
         }
 
-        for (int i = 0; i < copia.size(); i++) {
+        for (int i = 0; i < cantidad; i++) {
             int num = copia.pop();
             if (num % 2 == 0){
                 original.push(num*2);
