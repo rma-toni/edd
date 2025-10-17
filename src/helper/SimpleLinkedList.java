@@ -207,7 +207,7 @@ public class SimpleLinkedList<ELEMENT> implements ILinkedList<ELEMENT> {
 
         sb.append("[" + this.head.item.toString());
         for (Node<ELEMENT> skip = this.head.next; skip != null; skip = skip.next) {
-            sb.append(", " + skip.item.toString());
+            sb.append("\n, " + skip.item.toString());
         }
         sb.append("]");
 

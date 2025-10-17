@@ -198,8 +198,6 @@ public class Helper {
             day = Integer.parseInt(splitDate[0]);
             month = Integer.parseInt(splitDate[1]);
             year = Integer.parseInt(splitDate[2]);
-            //TODO Si el año es bisiesto
-            //TODO Meses
             boolean dayC = day <= 31 && day > 0;
             boolean monthC = month <= 12 && month > 0;
             boolean yearC = year < 2100 && year > 1950;
