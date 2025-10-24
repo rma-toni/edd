@@ -1,7 +1,5 @@
 package tp5.ex06;
 
-//TODO Hacer este
-
 //Crear una lista que almacene N números enteros generados de manera aleatoria y desarrollar métodos que
 //realicen lo siguiente:
 //a) Crear una nueva lista en donde los números pares estén al principio y los números impares al final.
@@ -22,6 +20,9 @@ public class ex06 {
         Random rand = new Random();
         SimpleLinkedList<Integer> randomNumbers = new SimpleLinkedList<>();
         int n = Helper.getInteger("Ingrese la cantidad de numeros enteros: ");
+        while (n <= 0){
+            n = Helper.getInteger("Por favor ingrese un numero mayor a 0: ");
+        }
         for (int i = 0; i < n; i++) {
             randomNumbers.addFirst(rand.nextInt(101));
         }
@@ -78,7 +79,7 @@ public class ex06 {
         return returnValue;
     }
 
-    /*public static SimpleLinkedList<Integer> ordenarLista(SimpleLinkedList<Integer> original){
+    public static SimpleLinkedList<Integer> ordenarLista(SimpleLinkedList<Integer> original){
         SimpleLinkedList<Integer> returnList = new SimpleLinkedList<>();
         SimpleLinkedList<Integer> copia = new SimpleLinkedList<>();
 
@@ -86,15 +87,16 @@ public class ex06 {
             copia.addLast(num);
         }
 
+        int min;
+        boolean isLesser;
         while (copia.size() != 0){
             // Buscar el valor mínimo en la lista
-            int min;
             try {
                 min = copia.removeFirst();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-            boolean isLesser = true;
+            isLesser = true;
             for (int num : copia) {
                 if (num < min) {
                     isLesser = false;
@@ -109,14 +111,7 @@ public class ex06 {
             }
         }
         return returnList;
-    }*/
+    } //ordanarLista pero solo usando lo que nos brinda SimpleLinkedList
 
-    public static SimpleLinkedList<Integer> ordenarLista(SimpleLinkedList<Integer> original) {
-        ArrayList<Integer> aux = new ArrayList<>();
-        for (int num : original) aux.add(num);
-        Collections.sort(aux);
-        SimpleLinkedList<Integer> sorted = new SimpleLinkedList<>();
-        for (int num : aux) sorted.addLast(num);
-        return sorted;
-    }
+
 }
