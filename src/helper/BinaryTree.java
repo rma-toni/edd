@@ -1,15 +1,10 @@
 package helper;
 
-//
 // Created by Julio Tentor <jtentor@fi.unju.edu.ar>
-//
-
 
 public class BinaryTree<ELEMENT> {
 
-
     //region Binary Tree Node Class
-
     protected class BTNode<ELEMENT> {
 
         public ELEMENT item;
@@ -40,22 +35,14 @@ public class BinaryTree<ELEMENT> {
     }
     //endregion
 
-
-
-
     //region Attributes
-
     protected BTNode<ELEMENT> root;
-
     //endregion
 
-
     //region Constructors
-
     public BinaryTree() {
         this.root = null;
     }
-
     // Métodos para propósitos académicos
     public BinaryTree(ELEMENT item) {
         this(item, null, null);
@@ -69,7 +56,6 @@ public class BinaryTree<ELEMENT> {
             this.root.right = right.root;
         }
     }
-
     //endregion
 
     @Override
@@ -98,7 +84,6 @@ public class BinaryTree<ELEMENT> {
             }
         }
     }
-
 
     public void PreOrder() {
         PreOrder(this.root);
@@ -144,7 +129,6 @@ public class BinaryTree<ELEMENT> {
         }
     }
 
-
     public int NodeCount() {
         return NodeCount(this.root);
     }
@@ -154,7 +138,6 @@ public class BinaryTree<ELEMENT> {
         }
         return 0;
     }
-
 
     public int LeafCount() {
         return LeafCount(this.root);
@@ -170,7 +153,6 @@ public class BinaryTree<ELEMENT> {
         return 0;
     }
 
-
     public int InternalCount() {
         return InternalCount(this.root);
     }
@@ -184,7 +166,6 @@ public class BinaryTree<ELEMENT> {
         }
         return 0;
     }
-
 
     public int MaxLevel() {
         return MaxLevel(this.root);
@@ -200,7 +181,6 @@ public class BinaryTree<ELEMENT> {
         }
         return -1;
     }
-
 
     public int Height() {
         return MaxLevel() + 1;

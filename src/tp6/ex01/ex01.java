@@ -42,5 +42,4 @@ public class ex01 {
         tree.DescendingOrder();
         System.out.println("\n"+tree.toString());
     }
-
 }
