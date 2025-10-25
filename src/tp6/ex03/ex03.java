@@ -18,6 +18,9 @@ public class ex03 {
         System.out.println(searchResult);
         searchResult = tree.Buscar(700);
         System.out.println(searchResult);
+        Boolean modifyResult = tree.modificar(551, 1);
+        System.out.println(tree.toString());
+        System.out.println(modifyResult);
     }
 
     public static BinarySearchTree<Integer> createTree(){

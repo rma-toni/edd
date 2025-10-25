@@ -180,8 +180,7 @@ public class Helper {
     //region String Helpers - Toni:)
     public static String getString(String inputMessage){
         System.out.print(inputMessage);
-        String stringValue = scanner.nextLine();
-        return stringValue;
+        return scanner.nextLine();
     }
     //endregion
 

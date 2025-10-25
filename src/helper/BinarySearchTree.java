@@ -150,4 +150,25 @@ public class BinarySearchTree<ELEMENT extends Comparable<ELEMENT>> extends Binar
         return value;
     }
 
+    public boolean modificar(ELEMENT item, ELEMENT nuevo) {
+        if (root != null){
+            return this.modificar(this.root, item, nuevo);
+        }else{
+            return false;
+        }
+    }
+
+    protected boolean modificar(BTNode<ELEMENT> root,ELEMENT item,ELEMENT nuevo) {
+        boolean value = false;
+        if (root != null && root.item.equals(item)){//TODO averiguar por que no funciona con ==
+            root.item = nuevo;
+            value = true;
+        } else if (item.compareTo(root.item) < 0 && root.left!=null) {
+            value = modificar(root.left, item, nuevo);
+        } else if (item.compareTo(root.item) > 0 && root.right!=null) {
+            value = modificar(root.right, item, nuevo);
+        }
+        return value;
+    }
+
 }
