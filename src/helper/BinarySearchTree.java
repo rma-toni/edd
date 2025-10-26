@@ -140,7 +140,7 @@ public class BinarySearchTree<ELEMENT extends Comparable<ELEMENT>> extends Binar
 
     protected ELEMENT Buscar(BTNode<ELEMENT> root,ELEMENT item) {
         ELEMENT value = null;
-        if (root != null && root.item.equals(item)){//TODO averiguar por que no funciona con ==
+        if (root != null && root.item.compareTo(item) == 0){//TODO averiguar por que no funciona con ==
             value = root.item;
         } else if (item.compareTo(root.item) < 0 && root.left!=null) {
             value = Buscar(root.left, item);
@@ -160,7 +160,7 @@ public class BinarySearchTree<ELEMENT extends Comparable<ELEMENT>> extends Binar
 
     protected boolean modificar(BTNode<ELEMENT> root,ELEMENT item,ELEMENT nuevo) {
         boolean value = false;
-        if (root != null && root.item.equals(item)){//TODO averiguar por que no funciona con ==
+        if (root != null && root.item.compareTo(item) == 0){//TODO averiguar por que no funciona con ==
             root.item = nuevo;
             value = true;
         } else if (item.compareTo(root.item) < 0 && root.left!=null) {
