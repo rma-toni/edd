@@ -13,6 +13,7 @@ public class Principal {
             System.out.println("2 - Mostrar Usuarios");
             System.out.println("3 - Agregar libro");
             System.out.println("4 - Crear usuario");
+            System.out.println("5 - Prestar libro");
             option = Helper.getInteger("Ingrese la opción elegida: ");
             switch (option){
                 case 1:
@@ -26,6 +27,8 @@ public class Principal {
                     break;
                 case 4:
                     gestor.crearUsuario();
+                    break;
+                case 5:
                     break;
                 case 0:
                     return;
