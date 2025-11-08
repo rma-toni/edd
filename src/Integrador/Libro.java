@@ -2,7 +2,7 @@ package Integrador;
 
 //AGREGAR PRECIO
 
-public class Libro implements Comparable<Libro>{
+public class Libro implements Comparable<Libro> {
 
     private int codigo;
     private String titulo;
@@ -28,6 +28,18 @@ public class Libro implements Comparable<Libro>{
 
     public String getTitulo() {
         return titulo;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
     }
 
     @Override

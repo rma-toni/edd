@@ -5,6 +5,7 @@ import helper.*;
 import javax.swing.*;
 import java.io.File;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -136,10 +137,22 @@ public class GestorBiblioteca implements Serializable {
     }
 
     public boolean prestamo(){
-        boolean opResult = true;
-        //TODO buscar Usuario
         Usuario user = userByCode();
-        return opResult;
+        Libro libro;
+        if (user==null) return false;
+        System.out.println("-------- USUARIO --------");
+        System.out.println(user.toString());
+        libro = searchBook();
+        if (libro==null) return false;
+        System.out.println("-------- LIBRO --------");
+        System.out.println(libro.toString());
+        if (libro.isDisponible()){
+            operaciones.push(new Operacion(++opCount,Operacion.Opcion.PRESTAMO,user,libro, LocalDate.now(),60));
+            libro.setDisponible(false);
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public boolean devolucion(){
@@ -186,8 +199,8 @@ public class GestorBiblioteca implements Serializable {
 
     //region Aux Methods
     public int rand(){
-        Random random = new Random(10000);
-        return rand();
+        Random random = new Random();
+        return random.nextInt(10000);
     }
 
     public Usuario userByCode(){
@@ -221,8 +234,23 @@ public class GestorBiblioteca implements Serializable {
                     }
                     break;
                 case 2:
+                    result = bookByAutor();
+                    if (result == null){
+                        opcion = Helper.getInteger("Ingrese 1 para volver a buscar o ingrese 0 para salir: ");
+                        if (opcion == 1){
+                            continue;
+                        }
+                    }
                     break;
                 case 3:
+                    result = booksByTitle();
+                    if (result == null){
+                        opcion = Helper.getInteger("Ingrese 1 para volver a buscar o ingrese 0 para salir: ");
+                        if (opcion == 1){
+                            continue;
+                        }
+                    }
+
                     break;
                 default:
                     System.out.println("Opcion invalida.");
@@ -243,6 +271,56 @@ public class GestorBiblioteca implements Serializable {
         }
         return result;
     }
+
+    public Libro bookByAutor(){
+        String sub = Helper.getString("Ingrese el nombre o parte del nombre de autor a buscar: ");
+        Libro result = null;
+        ArrayList<Libro> booksList = new ArrayList<>();
+        for (int i = 0; i < booksCount ; i++){
+            if (books[i].getAutor().contains(sub)){
+                booksList.add(books[i]);
+            }
+        }
+        if (booksList.isEmpty()){
+            System.out.println("No se encontraron resultados.");
+        }else{
+            for (int i = 0; i < booksList.size(); i++) {
+                System.out.println((i+1)+" - "+booksList.get(i).toString());
+            }
+            int opcion = Helper.getInteger("Ingrese el libro elegido (0 para cancelar):");
+            if (!(opcion == 0)){
+                result = booksList.get(opcion-1);
+            }else {
+                System.out.println("Operacion cancelada.");
+            }
+        }
+        return result;
+    }
+
+    public  Libro booksByTitle(){
+        String sub = Helper.getString("Ingrese el nombre o parte del titulo a buscar: ");
+        Libro result = null;
+        ArrayList<Libro> booksList = new ArrayList<>();
+        for (int i = 0; i < booksCount ; i++){
+            if (books[i].getTitulo().contains(sub)){
+                booksList.add(books[i]);
+            }
+        }
+        if (booksList.isEmpty()){
+            System.out.println("No se encontraron resultados.");
+        }else{
+            for (int i = 0; i < booksList.size(); i++) {
+                System.out.println((i+1)+" - "+booksList.get(i).toString());
+            }
+            int opcion = Helper.getInteger("Ingrese el libro elegido (0 para cancelar):");
+            if (!(opcion == 0)){
+                result = booksList.get(opcion-1);
+            }else {
+                System.out.println("Operacion cancelada.");
+            }
+        }
+        return result;
+    }
     //endregion
 
     //region Debug Methods
@@ -259,7 +337,18 @@ public class GestorBiblioteca implements Serializable {
         booksTree.add(book2);
         books[booksCount] = book2;
         booksCount++;
-        SaveManager.saveData(this, fileName);
+        codigo = 214123;
+        booksCode.add(codigo);
+        Libro book3 = new Libro(codigo,"Mujercitas", "Louisa May Alcott", 10000,true);
+        booksTree.add(book3);
+        books[booksCount] = book3;
+        booksCount++;
+        codigo = 4568;
+        booksCode.add(codigo);
+        Libro book4 = new Libro(codigo,"Persuasion", "Jane Austen", 10000,true);
+        booksTree.add(book4);
+        books[booksCount] = book4;
+        booksCount++;
     }
 
     public void addDebugDataUsers(){
@@ -275,7 +364,13 @@ public class GestorBiblioteca implements Serializable {
         usersTree.add(user2);
         users[usersCount] = user2;
         usersCount++;
-        SaveManager.saveData(this, fileName);
+        codigo = 132;
+        usersCode.add(codigo);
+        Usuario user3 = new Usuario(codigo, 37582553,"Ana","Salta 540", 123456789);
+        usersTree.add(user3);
+        users[usersCount] = user3;
+        usersCount++;
     }
+
     //endregion
 }

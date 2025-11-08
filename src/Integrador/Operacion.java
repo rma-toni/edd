@@ -14,13 +14,15 @@ public class Operacion {
     private Usuario user;
     private Libro book;
     private LocalDate date;
+    private int diasPres;
 
-    public Operacion(int id_operacion, Opcion tipo, Usuario user, Libro book, LocalDate date){
+    public Operacion(int id_operacion, Opcion tipo, Usuario user, Libro book, LocalDate date, int diasPres){
         this.id_operacion = id_operacion;
         this.tipo = tipo;
         this.user = user;
         this.book = book;
         this.date = date;
+        this.diasPres = diasPres;
     }
 
     @Override

@@ -1,9 +1,9 @@
 package Integrador;
 
-//TODO guardar en arrayList los codigos por que se puede usar contains
+//TODO Devolucion
+//TODO Queries
 
 import helper.Helper;
-import org.w3c.dom.html.HTMLBRElement;
 
 import java.io.Serializable;
 
@@ -38,7 +38,10 @@ public class Principal implements Serializable {
                     gestor.crearUsuario();
                     break;
                 case 5:
-                    gestor.prestamo();
+                    boolean resultPrest = gestor.prestamo();
+                    if (resultPrest){
+                        System.out.println("Prestamo realizado!");
+                    }
                     break;
                 case 6:
                     gestor.devolucion();
