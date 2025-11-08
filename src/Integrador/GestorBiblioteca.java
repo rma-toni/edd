@@ -149,6 +149,7 @@ public class GestorBiblioteca implements Serializable {
         if (libro.isDisponible()){
             operaciones.push(new Operacion(++opCount,Operacion.Opcion.PRESTAMO,user,libro, LocalDate.now(),60));
             libro.setDisponible(false);
+            user.prestar();
             return true;
         }else{
             return false;
@@ -157,6 +158,19 @@ public class GestorBiblioteca implements Serializable {
 
     public boolean devolucion(){
         boolean opResult = true;
+        ArrayList<Operacion> opList = new ArrayList<>();
+        Usuario user = userByCode();
+        int cantidadOp = operaciones.size();
+        for (int i = 0; i < cantidadOp; i++) {
+            Operacion op = operaciones.pop();
+
+            if (op.getUser().equals(user)){
+                System.out.println("Operacion encontrada");
+                opList.add(op);
+            }
+
+            operaciones.push(op);
+        }
         return opResult;
     }
     //endregion

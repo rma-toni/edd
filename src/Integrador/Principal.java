@@ -2,6 +2,7 @@ package Integrador;
 
 //TODO Devolucion
 //TODO Queries
+//TODO Ver Operaciones
 
 import helper.Helper;
 

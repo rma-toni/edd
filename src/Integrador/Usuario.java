@@ -27,6 +27,14 @@ public class Usuario implements Comparable<Usuario>{
         cantidadPrestados = 0;
     }
 
+    public void prestar(){
+        cantidadPrestados++;
+    }
+
+    public void devolver(){
+        cantidadPrestados--;
+    }
+
     public String getNombre() {
         return nombre;
     }

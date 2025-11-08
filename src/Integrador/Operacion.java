@@ -25,6 +25,18 @@ public class Operacion {
         this.diasPres = diasPres;
     }
 
+    public Libro getBook() {
+        return book;
+    }
+
+    public Usuario getUser() {
+        return user;
+    }
+
+    public Opcion getTipo() {
+        return tipo;
+    }
+
     @Override
     public String toString() {
         return "Operacion{" +
