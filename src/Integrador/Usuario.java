@@ -1,6 +1,6 @@
 package Integrador;
 
-public class Usuario implements Comparable<Usuario> {
+public class Usuario implements Comparable<Usuario>{
 
     private int numeroUsuario;
     private int DNI;
@@ -16,6 +16,23 @@ public class Usuario implements Comparable<Usuario> {
         this.direccion = direccion;
         this.telefono = telefono;
         this.cantidadPrestados = 0;
+    }
+
+    public Usuario(int numeroUsuario){
+        this.numeroUsuario = numeroUsuario;
+        DNI = 0;
+        nombre = null;
+        direccion = null;
+        telefono = 0;
+        cantidadPrestados = 0;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getNumeroUsuario() {
+        return numeroUsuario;
     }
 
     @Override

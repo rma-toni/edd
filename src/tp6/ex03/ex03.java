@@ -14,11 +14,11 @@ public class ex03 {
         //CONSTRUIMOS UN ARBOL DE PRUEBA, EL MISMO DEL EJERCICIO 1 por ejemplo
         BinarySearchTree<Integer> tree = createTree();
         System.out.println(tree.toString());
-        Integer searchResult = tree.Buscar(320);
+        Integer searchResult = tree.Buscar(290);
         System.out.println(searchResult);
         searchResult = tree.Buscar(700);
         System.out.println(searchResult);
-        Boolean modifyResult = tree.modificar(551, 1);
+        Boolean modifyResult = tree.modificar(290, 1);
         System.out.println(tree.toString());
         System.out.println(modifyResult);
     }

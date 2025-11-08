@@ -84,6 +84,8 @@ public class DoubleLinkedList<ELEMENT> implements ILinkedList<ELEMENT> {
         }
         this.head = temp;
         ++this.count;
+        System.out.println("Head: "+head.item);
+        System.out.println("Tail: "+tail.item);
     }
 
     public void addLastRookieVersion(ELEMENT item) {
@@ -101,6 +103,7 @@ public class DoubleLinkedList<ELEMENT> implements ILinkedList<ELEMENT> {
     }
     // Appends the specified element to the end of this list.
     public void addLast(ELEMENT item) {
+
         Node<ELEMENT> temp = new Node<ELEMENT>(item, null, this.tail);
         if (this.size() <= 0) {
             this.head = temp;
@@ -110,6 +113,9 @@ public class DoubleLinkedList<ELEMENT> implements ILinkedList<ELEMENT> {
         }
         this.tail = temp;
         ++this.count;
+
+        System.out.println("Head: "+head.item);
+        System.out.println("Tail: "+tail.item);
     }
 
     // Removes and returns the first element from this list.
@@ -143,6 +149,35 @@ public class DoubleLinkedList<ELEMENT> implements ILinkedList<ELEMENT> {
         }
         --this.count;
         return item;
+    }
+
+    public ELEMENT removeLastDebug(){
+        ELEMENT returnValue = null;
+        if (count <= 0) {
+            throw new RuntimeException("La lista está vacía...");
+        } else if (count == 1) {
+            this.head = null;
+        } else {
+            Node<ELEMENT> aux = head;
+            for (int i = 0; i < count-2; i++) {
+                aux = aux.next;
+            }
+            returnValue = aux.next.item;
+            aux.next = null;
+        }
+        --this.count;
+        return returnValue;
+    }
+
+    public ELEMENT peekLast(){
+     ELEMENT value = null;
+        Node<ELEMENT> aux = head;
+        for (int i = 0; i < count-1; i++) {
+            aux = aux.next;
+        }
+        value = aux.item;
+
+     return value;
     }
     //endregion
 

@@ -138,14 +138,14 @@ public class BinarySearchTree<ELEMENT extends Comparable<ELEMENT>> extends Binar
         }
     }
 
-    protected ELEMENT Buscar(BTNode<ELEMENT> root,ELEMENT item) {
+    protected ELEMENT Buscar(BTNode<ELEMENT> node,ELEMENT item) {
         ELEMENT value = null;
-        if (root != null && root.item.compareTo(item) == 0){//TODO averiguar por que no funciona con ==
-            value = root.item;
-        } else if (item.compareTo(root.item) < 0 && root.left!=null) {
-            value = Buscar(root.left, item);
-        } else if (item.compareTo(root.item) > 0 && root.right!=null) {
-            value = Buscar(root.right, item);
+        if (node.item.compareTo(item) == 0){
+            value = node.item;
+        } else if (item.compareTo(node.item) < 0 && node.left!=null) {
+            value = Buscar(node.left, item);
+        } else if (item.compareTo(node.item) > 0 && node.right!=null) {
+            value = Buscar(node.right, item);
         }
         return value;
     }
@@ -158,15 +158,15 @@ public class BinarySearchTree<ELEMENT extends Comparable<ELEMENT>> extends Binar
         }
     }
 
-    protected boolean modificar(BTNode<ELEMENT> root,ELEMENT item,ELEMENT nuevo) {
+    protected boolean modificar(BTNode<ELEMENT> node,ELEMENT item,ELEMENT nuevo) {
         boolean value = false;
-        if (root != null && root.item.compareTo(item) == 0){//TODO averiguar por que no funciona con ==
-            root.item = nuevo;
+        if (node.item.compareTo(item) == 0){
+            node.item = nuevo;
             value = true;
-        } else if (item.compareTo(root.item) < 0 && root.left!=null) {
-            value = modificar(root.left, item, nuevo);
-        } else if (item.compareTo(root.item) > 0 && root.right!=null) {
-            value = modificar(root.right, item, nuevo);
+        } else if (item.compareTo(node.item) < 0 && node.left!=null) {
+            value = modificar(node.left, item, nuevo);
+        } else if (item.compareTo(node.item) > 0 && node.right!=null) {
+            value = modificar(node.right, item, nuevo);
         }
         return value;
     }
