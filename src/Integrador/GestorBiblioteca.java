@@ -164,7 +164,7 @@ public class GestorBiblioteca implements Serializable {
         for (int i = 0; i < cantidadOp; i++) {
             Operacion op = operaciones.pop();
 
-            if (op.getUser().equals(user)){
+            if (op.getUser().equals(user) && !op.isCompletada()){
                 System.out.println("Operacion encontrada");
                 opList.add(op);
             }
@@ -172,6 +172,20 @@ public class GestorBiblioteca implements Serializable {
             operaciones.push(op);
         }
         return opResult;
+    }
+
+    public void mostrarOp(){
+        int cantidad = operaciones.size();
+        Stack<Operacion> aux = new Stack<>();
+        Operacion op;
+        for (int i = 0; i < cantidad; i++) {
+            aux.push(operaciones.pop());
+        }
+        for (int i = 0; i < cantidad; i++) {
+            op = aux.pop();
+            System.out.println(op);
+            operaciones.push(op);
+        }
     }
     //endregion
 
@@ -341,7 +355,7 @@ public class GestorBiblioteca implements Serializable {
     public void addDebugDataBooks(){
         int codigo = 123;
         booksCode.add(codigo);
-        Libro book1 = new Libro(codigo,"Orgullo y Prejuicio", "Jane Austen",12000 ,true);
+        Libro book1 = new Libro(codigo,"Orgullo y Prejuicio", "Jane Austen",12000 ,false);
         booksTree.add(book1);
         books[booksCount] = book1;
         booksCount++;
@@ -359,9 +373,15 @@ public class GestorBiblioteca implements Serializable {
         booksCount++;
         codigo = 4568;
         booksCode.add(codigo);
-        Libro book4 = new Libro(codigo,"Persuasion", "Jane Austen", 10000,true);
+        Libro book4 = new Libro(codigo,"Persuasion", "Jane Austen", 10000,false);
         booksTree.add(book4);
         books[booksCount] = book4;
+        booksCount++;
+        codigo = 7985;
+        booksCode.add(codigo);
+        Libro book5 = new Libro(codigo,"Quimica", "Raymond Chang", 32000,true);
+        booksTree.add(book5);
+        books[booksCount] = book5;
         booksCount++;
     }
 
@@ -384,6 +404,21 @@ public class GestorBiblioteca implements Serializable {
         usersTree.add(user3);
         users[usersCount] = user3;
         usersCount++;
+    }
+
+    public void addDebugDataOp(){
+        Operacion op1 = new Operacion(++opCount, Operacion.Opcion.PRESTAMO,users[1],books[3],LocalDate.now(),60);
+        operaciones.push(op1);
+        users[1].prestar();
+        Operacion op2 = new Operacion(++opCount, Operacion.Opcion.PRESTAMO,users[1],books[0],LocalDate.now(),60);
+        operaciones.push(op2);
+        users[1].prestar();
+    }
+
+    public void addDebugData(){
+        addDebugDataUsers();
+        addDebugDataBooks();
+        addDebugDataOp();
     }
 
     //endregion
