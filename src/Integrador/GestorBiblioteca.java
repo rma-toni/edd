@@ -13,6 +13,7 @@ import java.util.Random;
 //TODO array resize
 //TODO Validar telefono
 //TODO tiempo de prestamo
+//TODO imprimir Pendientes
 
 public class GestorBiblioteca implements Serializable {
 
@@ -152,6 +153,8 @@ public class GestorBiblioteca implements Serializable {
             user.prestar();
             return true;
         }else{
+            pendientes.add(new Pendiente(user,libro));
+            System.out.println("El libro no se encuentra disponible, se agrego a PENDIENTES.");
             return false;
         }
     }
@@ -163,28 +166,45 @@ public class GestorBiblioteca implements Serializable {
         int cantidadOp = operaciones.size();
         for (int i = 0; i < cantidadOp; i++) {
             Operacion op = operaciones.pop();
-
             if (op.getUser().equals(user) && !op.isCompletada()){
-                System.out.println("Operacion encontrada");
                 opList.add(op);
             }
-
             operaciones.push(op);
         }
+
+        for (int i = 0; i < opList.size(); i++) {
+            System.out.println((i+1)+" - "+opList.get(i).toString());
+        }
+
         return opResult;
     }
 
     public void mostrarOp(){
         int cantidad = operaciones.size();
-        Stack<Operacion> aux = new Stack<>();
-        Operacion op;
-        for (int i = 0; i < cantidad; i++) {
-            aux.push(operaciones.pop());
+        if (cantidad == 0){
+            System.out.println("No hay operaciones!");
+        }else{
+            Stack<Operacion> aux = new Stack<>();
+            Operacion op;
+            for (int i = 0; i < cantidad; i++) {
+                aux.push(operaciones.pop());
+            }
+            for (int i = 0; i < cantidad; i++) {
+                op = aux.pop();
+                System.out.println(op);
+                operaciones.push(op);
+            }
         }
-        for (int i = 0; i < cantidad; i++) {
-            op = aux.pop();
-            System.out.println(op);
-            operaciones.push(op);
+    }
+
+    public void mostrarPendientes(){
+        Pendiente pend;
+        int size = pendientes.size();
+
+        for (int i = 0; i < size; i++) {
+            pend = pendientes.remove();
+            System.out.println(pend);
+            pendientes.add(pend);
         }
     }
     //endregion
