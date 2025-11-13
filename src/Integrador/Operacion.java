@@ -14,6 +14,7 @@ public class Operacion {
     private Usuario user;
     private Libro book;
     private LocalDate date;
+    private LocalDate returnDate;
     private int diasPres;
     private boolean completada;
 
@@ -24,6 +25,7 @@ public class Operacion {
         this.book = book;
         this.date = date;
         this.diasPres = diasPres;
+        this.returnDate = date.plusDays(diasPres);
         if (this.tipo == Opcion.PRESTAMO){
             this.completada = false;
         }else{
@@ -56,9 +58,11 @@ public class Operacion {
         return "Operacion{" +
                 "id_operacion=" + id_operacion +
                 ", tipo=" + tipo +
-                ", user=" + user.getNombre() +
+                ", user=" + user.getNumeroUsuario() +
                 ", book=" + book.getTitulo() +
-                ", date=" + date +
+                ", fecha=" + date +
+                ", fecha devolucion=" + returnDate +
+                ", completada=" + completada +
                 '}';
     }
 }

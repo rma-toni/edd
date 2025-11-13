@@ -1,7 +1,7 @@
 package Integrador;
 
-//TODO Devolucion
-//TODO Queries
+//TODO Reversion de ultima operacion
+//TODO Continuar en pendientes
 
 import helper.Helper;
 

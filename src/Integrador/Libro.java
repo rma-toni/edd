@@ -48,6 +48,7 @@ public class Libro implements Comparable<Libro> {
                 "codigo=" + codigo +
                 ", titulo='" + titulo + '\'' +
                 ", autor='" + autor + '\'' +
+                ", precio='" + precio + '\'' +
                 ", disponible=" + disponible +
                 '}';
     }

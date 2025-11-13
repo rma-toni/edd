@@ -6,17 +6,13 @@ import javax.swing.*;
 import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
 //TODO array resize
 //TODO Validar telefono
-//TODO tiempo de prestamo
-//TODO Procesar pendientes PROBAR
-//TODO Buscar libro
-//TODO Buscar Usuario
-//TODO Devolver libro
 
 public class GestorBiblioteca implements Serializable {
     private File data;
@@ -155,7 +151,8 @@ public class GestorBiblioteca implements Serializable {
         System.out.println("--------- LIBRO ---------");
         System.out.println(libro.toString());
         if (libro.isDisponible()){
-            operaciones.push(new Operacion(++opCount,Operacion.Opcion.PRESTAMO,user,libro, LocalDate.now(),60));
+            int dias = Helper.getInteger("Ingrese el tiempo del prestamo (en dias): ");
+            operaciones.push(new Operacion(++opCount,Operacion.Opcion.PRESTAMO,user,libro, LocalDate.now(),dias));
             libro.setDisponible(false);
             user.prestar();
             return true;
@@ -167,20 +164,29 @@ public class GestorBiblioteca implements Serializable {
     }
 
     public boolean devolucion(){
-        boolean opResult = true;
+        boolean opResult = false;
         ArrayList<Operacion> opList = new ArrayList<>();
+        Stack<Operacion> aux = new Stack<>();
         Usuario user = userByCode();
         int cantidadOp = operaciones.size();
         for (int i = 0; i < cantidadOp; i++) {
-            Operacion op = operaciones.pop();
+            aux.push(operaciones.pop());
+        }
+        for (int i = 0; i < cantidadOp; i++) {
+            Operacion op = aux.pop();
             if (op.getUser().equals(user) && !op.isCompletada()){
                 opList.add(op);
             }
             operaciones.push(op);
         }
-
-        for (int i = 0; i < opList.size(); i++) {
-            System.out.println((i+1)+" - "+opList.get(i).toString());
+        if (!opList.isEmpty()){
+            for (int i = 0; i < opList.size(); i++) {
+                System.out.println((i+1)+" - "+opList.get(i).toString());
+            }
+            int opcion = Helper.getInteger("Ingrese el libro a devolver: ");
+            opList.get(opcion-1).setCompletada(true);
+            opList.get(opcion-1).getBook().setDisponible(true);
+            operaciones.push(new Operacion(opCount++, Operacion.Opcion.DEVOLUCION,opList.get(opcion-1).getUser(),opList.get(opcion-1).getBook(),LocalDate.now(),0));
         }
 
         return opResult;
@@ -208,33 +214,52 @@ public class GestorBiblioteca implements Serializable {
         Pendiente pend;
         int size = pendientes.size();
 
-        for (int i = 0; i < size; i++) {
-            pend = pendientes.remove();
-            System.out.println(pend);
-            pendientes.add(pend);
+        System.out.println("-------- PENDIENTES --------");
+        if (pendientes.isEmpty()){
+            System.out.println("No hay pendientes.");
+        }else {
+            for (int i = 0; i < size; i++) {
+                pend = pendientes.remove();
+                System.out.println(pend);
+                pendientes.add(pend);
+            }
         }
     }
 
     public void procesarPendientes(){
         int size = pendientes.size();
         Pendiente aux;
-        for (int i = 0; i < size; i++) {
-            aux = pendientes.remove();
-            if (aux.getLibro().isDisponible()){
-                System.out.println("El libro se encuentra disponible, desea realizar el prestamo? 1 - Si, 2 - No");
-                int number = Helper.getInteger("Ingrese la opcion seleccionada: ");
-                while (number!= 1 && number != 2) number = Helper.getInteger("Ingrese una opcion valida: ");
-                if (number == 1){
-                    operaciones.push(new Operacion(opCount, Operacion.Opcion.PRESTAMO, aux.getUsuario(),aux.getLibro(), LocalDate.now(), 60));
-                    opCount++;
-                    System.out.println("Operacion completada y pendiente removida!");
-                }else {
-                    System.out.println("Pendiente removido!");
+        int count = 0;
+        System.out.println("-------- PENDIENTES --------");
+        if (!pendientes.isEmpty()){
+            for (int i = 0; i < size; i++) {
+                aux = pendientes.remove();
+                if (aux.getLibro().isDisponible()){
+                    System.out.println(aux.toString());
+                    System.out.println("El libro se encuentra disponible, desea realizar el prestamo? 1 - Si, 2 - No");
+                    int number = Helper.getInteger("Ingrese la opcion seleccionada: ");
+                    while (number!= 1 && number != 2) number = Helper.getInteger("Ingrese una opcion valida: ");
+                    if (number == 1){
+                        int dias = Helper.getInteger("Ingrese el tiempo del prestamo (en dias): ");
+                        aux.getLibro().setDisponible(false);
+                        operaciones.push(new Operacion(opCount, Operacion.Opcion.PRESTAMO, aux.getUsuario(),aux.getLibro(), LocalDate.now(), dias));
+                        opCount++;
+                        System.out.println("Operacion completada y pendiente removido!");
+                    }else {
+                        System.out.println("Pendiente removido!");
+                    }
+                    count++;
+                }else{
+                    pendientes.add(aux);
                 }
-            }else{
-                pendientes.add(aux);
+                if (count == 0){
+                    System.out.println("Ninguna de las operaciones pendientes puede completarse.");
+                }
             }
+        }else{
+            System.out.println("No hay pendientes para procesar.");
         }
+
     }
     //endregion
 
