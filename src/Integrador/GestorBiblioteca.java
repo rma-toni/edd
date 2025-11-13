@@ -13,6 +13,7 @@ import java.util.Random;
 //TODO array resize
 //TODO Validar telefono
 //TODO tiempo de prestamo
+//TODO imprimir Pendientes
 
 public class GestorBiblioteca implements Serializable {
 
@@ -153,6 +154,8 @@ public class GestorBiblioteca implements Serializable {
             user.prestar();
             return true;
         }else{
+            pendientes.add(new Pendiente(user,libro));
+            System.out.println("El libro no se encuentra disponible, se agrego a PENDIENTES.");
             return false;
         }
     }
@@ -164,15 +167,46 @@ public class GestorBiblioteca implements Serializable {
         int cantidadOp = operaciones.size();
         for (int i = 0; i < cantidadOp; i++) {
             Operacion op = operaciones.pop();
-
-            if (op.getUser().equals(user)){
-                System.out.println("Operacion encontrada");
+            if (op.getUser().equals(user) && !op.isCompletada()){
                 opList.add(op);
             }
-
             operaciones.push(op);
         }
+
+        for (int i = 0; i < opList.size(); i++) {
+            System.out.println((i+1)+" - "+opList.get(i).toString());
+        }
+
         return opResult;
+    }
+
+    public void mostrarOp(){
+        int cantidad = operaciones.size();
+        if (cantidad == 0){
+            System.out.println("No hay operaciones!");
+        }else{
+            Stack<Operacion> aux = new Stack<>();
+            Operacion op;
+            for (int i = 0; i < cantidad; i++) {
+                aux.push(operaciones.pop());
+            }
+            for (int i = 0; i < cantidad; i++) {
+                op = aux.pop();
+                System.out.println(op);
+                operaciones.push(op);
+            }
+        }
+    }
+
+    public void mostrarPendientes(){
+        Pendiente pend;
+        int size = pendientes.size();
+
+        for (int i = 0; i < size; i++) {
+            pend = pendientes.remove();
+            System.out.println(pend);
+            pendientes.add(pend);
+        }
     }
     //endregion
 
@@ -342,7 +376,7 @@ public class GestorBiblioteca implements Serializable {
     public void addDebugDataBooks(){
         int codigo = 123;
         booksCode.add(codigo);
-        Libro book1 = new Libro(codigo,"Orgullo y Prejuicio", "Jane Austen",12000 ,true);
+        Libro book1 = new Libro(codigo,"Orgullo y Prejuicio", "Jane Austen",12000 ,false);
         booksTree.add(book1);
         books[booksCount] = book1;
         booksCount++;
@@ -360,9 +394,15 @@ public class GestorBiblioteca implements Serializable {
         booksCount++;
         codigo = 4568;
         booksCode.add(codigo);
-        Libro book4 = new Libro(codigo,"Persuasion", "Jane Austen", 10000,true);
+        Libro book4 = new Libro(codigo,"Persuasion", "Jane Austen", 10000,false);
         booksTree.add(book4);
         books[booksCount] = book4;
+        booksCount++;
+        codigo = 7985;
+        booksCode.add(codigo);
+        Libro book5 = new Libro(codigo,"Quimica", "Raymond Chang", 32000,true);
+        booksTree.add(book5);
+        books[booksCount] = book5;
         booksCount++;
     }
 
@@ -385,6 +425,21 @@ public class GestorBiblioteca implements Serializable {
         usersTree.add(user3);
         users[usersCount] = user3;
         usersCount++;
+    }
+
+    public void addDebugDataOp(){
+        Operacion op1 = new Operacion(++opCount, Operacion.Opcion.PRESTAMO,users[1],books[3],LocalDate.now(),60);
+        operaciones.push(op1);
+        users[1].prestar();
+        Operacion op2 = new Operacion(++opCount, Operacion.Opcion.PRESTAMO,users[1],books[0],LocalDate.now(),60);
+        operaciones.push(op2);
+        users[1].prestar();
+    }
+
+    public void addDebugData(){
+        addDebugDataUsers();
+        addDebugDataBooks();
+        addDebugDataOp();
     }
 
     //endregion

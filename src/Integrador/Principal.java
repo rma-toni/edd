@@ -2,7 +2,6 @@ package Integrador;
 
 //TODO Devolucion
 //TODO Queries
-//TODO Ver Operaciones
 
 import helper.Helper;
 
@@ -21,9 +20,10 @@ public class Principal implements Serializable {
             System.out.println("4 - Crear usuario");
             System.out.println("5 - Prestar libro");
             System.out.println("6 - Devolucion de libro");
+            System.out.println("7 - Mostrar Operaciones");
+            System.out.println("8 - Mostrar Pendientes");
             System.out.println("------- DEBUG OPTIONS -----------");
-            System.out.println("11 - Add books for debug");
-            System.out.println("12 - Add users for debug");
+            System.out.println("11 - Add debug data");
             option = Helper.getInteger("Ingrese la opción elegida: ");
             switch (option) {
                 case 1:
@@ -45,13 +45,19 @@ public class Principal implements Serializable {
                     }
                     break;
                 case 6:
-                    gestor.devolucion();
+                    boolean resultDev = gestor.devolucion();
+                    if (resultDev){
+                        System.out.println("Devolucion realizada!");
+                    }
+                    break;
+                case 7:
+                    gestor.mostrarOp();
+                    break;
+                case 8:
+                    gestor.mostrarPendientes();
                     break;
                 case 11:
-                    gestor.addDebugDataBooks();
-                    break;
-                case 12:
-                    gestor.addDebugDataUsers();
+                    gestor.addDebugData();
                     break;
                 case 0:
                     return;

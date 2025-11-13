@@ -1,6 +1,5 @@
 package Integrador;
 
-import tp5.ex02.Libro;
 
 public class Pendiente {
     private Usuario usuario;
@@ -16,5 +15,13 @@ public class Pendiente {
     }
     public Libro getLibro() {
         return libro;
+    }
+
+    @Override
+    public String toString() {
+        return "Pendiente{" +
+                "usuario=" + usuario.getNombre() +
+                ", libro=" + libro.getTitulo() +
+                '}';
     }
 }
