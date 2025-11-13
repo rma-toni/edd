@@ -2,27 +2,21 @@ package Integrador;
 
 import helper.*;
 
-import javax.swing.*;
-import java.io.File;
-import java.io.Serializable;
+
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 //TODO array resize
 //TODO Validar telefono
 
-public class GestorBiblioteca implements Serializable {
-    private File data;
-    private final String fileName = "datos.dat";
+public class GestorBiblioteca  {
 
     //region ATTRIBUTES
     private Libro[] books;
     private Usuario[] users;
-    private int booksCount;
-    private int usersCount;
+    private int booksCount; //Indices de array
+    private int usersCount; //
     private int opCount;
     private BinarySearchTree<Libro> booksTree;
     private BinarySearchTree<Usuario> usersTree;
@@ -34,34 +28,6 @@ public class GestorBiblioteca implements Serializable {
 
     //region CONSTRUCTOR
     public GestorBiblioteca() {
-        /*data = new File(fileName);
-        if (data.exists()){
-            GestorBiblioteca load = SaveManager.loadData(fileName);
-            this.books = load.getBooks();
-            this.users = load.getUsers();
-            this.booksCount = load.getBooksCount();
-            this.usersCount = load.getUsersCount();
-            this.opCount = load.getOpCount();
-            this.booksTree = load.getBooksTree();
-            this.usersTree = load.getUsersTree();
-            this.usersCode = load.getUsersCode();
-            this.booksCode = load.getBooksCode();
-            this.pendientes = load.getPendientes();
-            this.operaciones = load.getOperaciones();
-        }else {
-            books = new Libro[100];
-            users = new Usuario[100];
-            booksTree = new BinarySearchTree<>();
-            usersTree = new BinarySearchTree<>();
-            usersCode = new ArrayList<>();
-            booksCode = new ArrayList<>();
-            booksCount = 0;
-            usersCount = 0;
-            opCount = 0;
-            pendientes = new Queue<>(100);
-            operaciones = new Stack<>(100);
-            SaveManager.saveData(this, fileName);
-        }*/
 
         books = new Libro[100];
         users = new Usuario[100];
@@ -74,7 +40,6 @@ public class GestorBiblioteca implements Serializable {
         opCount = 0;
         pendientes = new Queue<>(100);
         operaciones = new Stack<>(100);
-        SaveManager.saveData(this, fileName);
     }
     //endregion
 
@@ -84,7 +49,7 @@ public class GestorBiblioteca implements Serializable {
         if (booksCount == 0){
             System.out.println("No hay libros");
         }else{
-            StringBuilder message = new StringBuilder();
+            StringBuilder message = new StringBuilder();  // ""
             for (int i = 0; i < booksCount; i++){
                 message.append(books[i].toString()).append("\n");
             }
@@ -119,7 +84,6 @@ public class GestorBiblioteca implements Serializable {
         booksTree.add(book);
         books[booksCount] = book;
         booksCount++;
-        SaveManager.saveData(this, fileName);
     }
 
     public void crearUsuario(){
@@ -136,7 +100,6 @@ public class GestorBiblioteca implements Serializable {
         usersTree.add(user);
         users[usersCount] = user;
         usersCount++;
-        SaveManager.saveData(this, fileName);
     }
 
     public boolean prestamo(){
@@ -184,9 +147,11 @@ public class GestorBiblioteca implements Serializable {
                 System.out.println((i+1)+" - "+opList.get(i).toString());
             }
             int opcion = Helper.getInteger("Ingrese el libro a devolver: ");
+            //TODO Validor no ingrese nada raro
             opList.get(opcion-1).setCompletada(true);
             opList.get(opcion-1).getBook().setDisponible(true);
             operaciones.push(new Operacion(opCount++, Operacion.Opcion.DEVOLUCION,opList.get(opcion-1).getUser(),opList.get(opcion-1).getBook(),LocalDate.now(),0));
+            opResult = true;
         }
 
         return opResult;
@@ -260,6 +225,11 @@ public class GestorBiblioteca implements Serializable {
             System.out.println("No hay pendientes para procesar.");
         }
 
+    }
+
+    public void revertir(){
+        Operacion revert = operaciones.pop();
+        Operacion.Opcion tipo = revert.getTipo();
     }
     //endregion
 
@@ -352,7 +322,6 @@ public class GestorBiblioteca implements Serializable {
                             continue;
                         }
                     }
-
                     break;
                 default:
                     System.out.println("Opcion invalida.");
@@ -390,7 +359,8 @@ public class GestorBiblioteca implements Serializable {
                 System.out.println((i+1)+" - "+booksList.get(i).toString());
             }
             int opcion = Helper.getInteger("Ingrese el libro elegido (0 para cancelar):");
-            if (!(opcion == 0)){
+            //TODO Comprabar que no sea mayor al limete
+            if (!(opcion <= 0) && opcion >= booksList.size()){
                 result = booksList.get(opcion-1);
             }else {
                 System.out.println("Operacion cancelada.");
@@ -430,8 +400,8 @@ public class GestorBiblioteca implements Serializable {
         int codigo = 123;
         booksCode.add(codigo);
         Libro book1 = new Libro(codigo,"Orgullo y Prejuicio", "Jane Austen",12000 ,false);
-        booksTree.add(book1);
-        books[booksCount] = book1;
+        booksTree.add(book1); //Guardado en bst arbol de busqueda binario
+        books[booksCount] = book1; //Guardado en array
         booksCount++;
         codigo = 213;
         booksCode.add(codigo);
@@ -463,8 +433,8 @@ public class GestorBiblioteca implements Serializable {
         int codigo = 123;
         usersCode.add(codigo);
         Usuario user1 = new Usuario(codigo, 31522333,"Marco","Avenida Alvear 218", 1173695623);
-        usersTree.add(user1);
-        users[usersCount] = user1;
+        usersTree.add(user1); //bst
+        users[usersCount] = user1; //array
         usersCount++;
         codigo = 231;
         usersCode.add(codigo);
@@ -482,7 +452,7 @@ public class GestorBiblioteca implements Serializable {
 
     public void addDebugDataOp(){
         Operacion op1 = new Operacion(++opCount, Operacion.Opcion.PRESTAMO,users[1],books[3],LocalDate.now(),60);
-        operaciones.push(op1);
+        operaciones.push(op1); //guardando en stack
         users[1].prestar();
         Operacion op2 = new Operacion(++opCount, Operacion.Opcion.PRESTAMO,users[1],books[0],LocalDate.now(),60);
         operaciones.push(op2);

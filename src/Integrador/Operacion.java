@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Operacion {
 
+    //Enumerador
     public enum Opcion {
         PRESTAMO,
         DEVOLUCION;

@@ -18,6 +18,7 @@ public class Libro implements Comparable<Libro> {
         this.disponible = disponible;
     }
 
+    //Con fines de comparacion
     public Libro(int codigo){
         this.codigo = codigo;
         titulo = null;
@@ -56,5 +57,6 @@ public class Libro implements Comparable<Libro> {
     @Override
     public int compareTo(Libro o) {
         return Integer.compare(this.codigo, o.codigo);
+        //si es igual retorna 0, si menor retorna -1 y si mayor retorna 1;
     }
 }

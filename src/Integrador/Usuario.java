@@ -32,7 +32,11 @@ public class Usuario implements Comparable<Usuario>{
     }
 
     public void devolver(){
-        cantidadPrestados--;
+        if(cantidadPrestados<=0){
+            System.out.println("No hay libros prestados");
+        }else{
+            cantidadPrestados--;
+        }
     }
 
     public String getNombre() {

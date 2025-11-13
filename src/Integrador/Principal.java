@@ -25,12 +25,13 @@ public class Principal implements Serializable {
             System.out.println("3 - Agregar libro");
             System.out.println("4 - Crear usuario");
             System.out.println("5 - Prestar libro");
-            System.out.println("6 - Devolucion de libro");
+            System.out.println("6 - Devolución de libro");
             System.out.println("7 - Mostrar Operaciones");
             System.out.println("8 - Mostrar Pendientes");
             System.out.println("9 - Procesar Pendientes");
+            System.out.println("10 - Revertir ultima operacion");
             System.out.println("------- DEBUG OPTIONS -----------");
-            System.out.println("11 - Add debug data");
+            System.out.println("11 - Agregar datos de prueba");
             option = Helper.getInteger("Ingrese la opción elegida: ");
             switch (option) {
                 case 1:
@@ -65,6 +66,9 @@ public class Principal implements Serializable {
                     break;
                 case 9:
                     gestor.procesarPendientes();
+                    break;
+                case 10:
+                    gestor.revertir();
                     break;
                 case 11:
                     gestor.addDebugData();
