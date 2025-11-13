@@ -2,6 +2,12 @@ package Integrador;
 
 //TODO Reversion de ultima operacion
 //TODO Continuar en pendientes
+//TODO Mostrar Cantidad de libros prestados en total
+//TODO Mostrar libros por autor, En este caso, se debe obtener una lista enlazada con los libros
+//cuyo autor contenga la subcadena indicada.
+//TODO Usuarios cuya cantidad de libros prestados es igual o mayor a un valor dado. En este caso, se debe obtener una
+//lista enlazada con los usuarios que se han prestado una cantidad igual o superior a x (siendo x un valor dado
+//por el usuario).
 
 import helper.Helper;
 
