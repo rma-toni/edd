@@ -3,7 +3,6 @@ package helper;
 import java.io.*;
 
 public class SaveManager {
-
     public static <T extends Serializable> boolean saveData(T object, String fileName){
         //ObjectOutputStream convierte el objeto en una secuencia de bits
         //FileOutputStream permite escribir bytes en un archivo

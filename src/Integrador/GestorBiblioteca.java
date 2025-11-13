@@ -13,13 +13,16 @@ import java.util.Random;
 //TODO array resize
 //TODO Validar telefono
 //TODO tiempo de prestamo
-//TODO imprimir Pendientes
+//TODO Procesar pendientes PROBAR
+//TODO Buscar libro
+//TODO Buscar Usuario
+//TODO Devolver libro
 
 public class GestorBiblioteca implements Serializable {
-
     private File data;
     private final String fileName = "datos.dat";
 
+    //region ATTRIBUTES
     private Libro[] books;
     private Usuario[] users;
     private int booksCount;
@@ -31,7 +34,9 @@ public class GestorBiblioteca implements Serializable {
     private ArrayList<Integer> usersCode;
     private Queue<Pendiente> pendientes;
     private Stack<Operacion> operaciones;
+    //endregion
 
+    //region CONSTRUCTOR
     public GestorBiblioteca() {
         /*data = new File(fileName);
         if (data.exists()){
@@ -75,6 +80,7 @@ public class GestorBiblioteca implements Serializable {
         operaciones = new Stack<>(100);
         SaveManager.saveData(this, fileName);
     }
+    //endregion
 
     //region METHODS
     public void mostrarLibros(){
@@ -145,7 +151,7 @@ public class GestorBiblioteca implements Serializable {
         System.out.println(user.toString());
         libro = searchBook();
         if (libro==null) return false;
-        System.out.println("-------- LIBRO --------");
+        System.out.println("--------- LIBRO ---------");
         System.out.println(libro.toString());
         if (libro.isDisponible()){
             operaciones.push(new Operacion(++opCount,Operacion.Opcion.PRESTAMO,user,libro, LocalDate.now(),60));
@@ -207,6 +213,28 @@ public class GestorBiblioteca implements Serializable {
             pendientes.add(pend);
         }
     }
+
+    public void procesarPendientes(){
+        int size = pendientes.size();
+        Pendiente aux;
+        for (int i = 0; i < size; i++) {
+            aux = pendientes.remove();
+            if (aux.getLibro().isDisponible()){
+                System.out.println("El libro se encuentra disponible, desea realizar el prestamo? 1 - Si, 2 - No");
+                int number = Helper.getInteger("Ingrese la opcion seleccionada: ");
+                while (number!= 1 && number != 2) number = Helper.getInteger("Ingrese una opcion valida: ");
+                if (number == 1){
+                    operaciones.push(new Operacion(opCount, Operacion.Opcion.PRESTAMO, aux.getUsuario(),aux.getLibro(), LocalDate.now(), 60));
+                    opCount++;
+                    System.out.println("Operacion completada y pendiente removida!");
+                }else {
+                    System.out.println("Pendiente removido!");
+                }
+            }else{
+                pendientes.add(aux);
+            }
+        }
+    }
     //endregion
 
     //region GETTERS
@@ -245,7 +273,7 @@ public class GestorBiblioteca implements Serializable {
     }
     //endregion
 
-    //region Aux Methods
+    //region AUX METHODS
     public int rand(){
         Random random = new Random();
         return random.nextInt(10000);
@@ -440,6 +468,5 @@ public class GestorBiblioteca implements Serializable {
         addDebugDataBooks();
         addDebugDataOp();
     }
-
     //endregion
 }
