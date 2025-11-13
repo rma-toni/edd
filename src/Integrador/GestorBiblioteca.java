@@ -144,6 +144,7 @@ public class GestorBiblioteca implements Serializable {
     }
 
     public boolean prestamo(){
+
         Usuario user = userByCode();
         Libro libro;
         if (user==null) return false;
