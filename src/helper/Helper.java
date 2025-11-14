@@ -179,8 +179,14 @@ public class Helper {
 
     //region String Helpers - Toni:)
     public static String getString(String inputMessage){
+        String returnValue = "";
         System.out.print(inputMessage);
-        return scanner.nextLine();
+        returnValue = scanner.nextLine();
+        while (returnValue.isEmpty()){
+            System.out.print("No se ingrese ningun valor, por favor ingrese un valor valido: ");
+            returnValue = scanner.nextLine();
+        }
+        return returnValue;
     }
     //endregion
 

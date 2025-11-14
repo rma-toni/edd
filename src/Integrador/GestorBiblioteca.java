@@ -141,6 +141,7 @@ public class GestorBiblioteca  {
         ArrayList<Operacion> opList = new ArrayList<>();
         Stack<Operacion> aux = new Stack<>();
         Usuario user = userByCode();
+        if (user == null) return false;
         int cantidadOp = operaciones.size();
         for (int i = 0; i < cantidadOp; i++) {
             try {
@@ -164,14 +165,21 @@ public class GestorBiblioteca  {
             for (int i = 0; i < opList.size(); i++) {
                 System.out.println((i+1)+" - "+opList.get(i).toString());
             }
-            int opcion = Helper.getInteger("Ingrese el libro a devolver: ");
+            int opcion = Helper.getInteger("Ingrese el libro a devolver (0 para cancelar): ");
             if (opcion<=opList.size() && opcion > 0){
                 opList.get(opcion-1).setCompletada(true);
                 opList.get(opcion-1).getBook().setDisponible(true);
+                opList.get(opcion-1).getUser().devolver();
                 operaciones.push(new Operacion(opCount++, Operacion.Opcion.DEVOLUCION,opList.get(opcion-1).getUser(),opList.get(opcion-1).getBook(),LocalDate.now(),0));
                 totalPrestados--;
                 opResult = true;
+            } else if (opcion == 0) {
+                System.out.println("Operacion Cancelada");
+            } else {
+                System.out.println("Opcion incorrecta");
             }
+        }else{
+            System.out.println("El usurio no tiene ningun libro en prestamo.");
         }
 
         return opResult;
@@ -460,7 +468,7 @@ public class GestorBiblioteca  {
                 System.out.println((i+1)+" - "+booksList.get(i).toString());
             }
             int opcion = Helper.getInteger("Ingrese el libro elegido (0 para cancelar):");
-            if (!(opcion <= 0) && opcion >= booksList.size()){
+            if (!(opcion <= 0) && opcion <= booksList.size()){
                 result = booksList.get(opcion-1);
             }else {
                 System.out.println("Operacion cancelada.");

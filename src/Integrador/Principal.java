@@ -1,8 +1,5 @@
 package Integrador;
 
-//TODO Verificar Listas enlazadas vacias
-//TODO Probar devolucion
-
 import helper.DoubleLinkedList;
 import helper.Helper;
 
