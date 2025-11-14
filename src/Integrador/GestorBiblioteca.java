@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
 
-//TODO array resize
 //TODO Validar telefono
 
 public class GestorBiblioteca  {
@@ -27,7 +26,7 @@ public class GestorBiblioteca  {
     private Stack<Operacion> operaciones;
     //endregion
 
-    //region CONSTRUCTOR
+    //region CONSTRUCTOR - REVISADO
     public GestorBiblioteca() {
 
         books = new Libro[100];
@@ -45,7 +44,7 @@ public class GestorBiblioteca  {
     }
     //endregion
 
-    //region METHODS
+    //region MAIN METHODS - REVISADO
     public void mostrarLibros(){
         System.out.println("---------- LIBROS ----------");
         if (booksCount == 0){
@@ -58,7 +57,7 @@ public class GestorBiblioteca  {
             System.out.println(message);
         }
         System.out.println("---------- FIN ----------");
-    }
+    } //REVISADO
 
     public void mostrarUsuarios(){
         System.out.println("---------- USUARIOS ----------");
@@ -72,7 +71,7 @@ public class GestorBiblioteca  {
             System.out.println(message);
         }
         System.out.println("---------- FIN ----------");
-    }
+    } //REVISADO
 
     public void crearLibro(){
         int cod = rand();
@@ -86,7 +85,7 @@ public class GestorBiblioteca  {
         booksTree.add(book);
         books[booksCount] = book;
         booksCount++;
-    }
+    } //REVISADO
 
     public void crearUsuario(){
         int userNumber = rand();
@@ -102,7 +101,7 @@ public class GestorBiblioteca  {
         usersTree.add(user);
         users[usersCount] = user;
         usersCount++;
-    }
+    } //REVISADO
 
     public boolean prestamo(){
 
@@ -117,17 +116,25 @@ public class GestorBiblioteca  {
         System.out.println(libro.toString());
         if (libro.isDisponible()){
             int dias = Helper.getInteger("Ingrese el tiempo del prestamo (en dias): ");
-            operaciones.push(new Operacion(++opCount,Operacion.Opcion.PRESTAMO,user,libro, LocalDate.now(),dias));
+            try {
+                operaciones.push(new Operacion(++opCount,Operacion.Opcion.PRESTAMO,user,libro, LocalDate.now(),dias));
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
             libro.setDisponible(false);
             user.prestar();
             totalPrestados++;
             return true;
         }else{
-            pendientes.add(new Pendiente(user,libro));
+            try {
+                pendientes.add(new Pendiente(user,libro));
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
             System.out.println("El libro no se encuentra disponible, se agrego a PENDIENTES.");
             return false;
         }
-    }
+    } //REVISADO
 
     public boolean devolucion(){
         boolean opResult = false;
@@ -136,30 +143,39 @@ public class GestorBiblioteca  {
         Usuario user = userByCode();
         int cantidadOp = operaciones.size();
         for (int i = 0; i < cantidadOp; i++) {
-            aux.push(operaciones.pop());
+            try {
+                aux.push(operaciones.pop());
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
         }
         for (int i = 0; i < cantidadOp; i++) {
-            Operacion op = aux.pop();
-            if (op.getUser().equals(user) && !op.isCompletada()){
-                opList.add(op);
+            try {
+                Operacion op = aux.pop();
+                if (op.getUser().equals(user) && !op.isCompletada()){
+                    opList.add(op);
+                }
+                operaciones.push(op);
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
             }
-            operaciones.push(op);
         }
         if (!opList.isEmpty()){
             for (int i = 0; i < opList.size(); i++) {
                 System.out.println((i+1)+" - "+opList.get(i).toString());
             }
             int opcion = Helper.getInteger("Ingrese el libro a devolver: ");
-            //TODO Validor no ingrese nada raro
-            opList.get(opcion-1).setCompletada(true);
-            opList.get(opcion-1).getBook().setDisponible(true);
-            operaciones.push(new Operacion(opCount++, Operacion.Opcion.DEVOLUCION,opList.get(opcion-1).getUser(),opList.get(opcion-1).getBook(),LocalDate.now(),0));
-            totalPrestados--;
-            opResult = true;
+            if (opcion<=opList.size() && opcion > 0){
+                opList.get(opcion-1).setCompletada(true);
+                opList.get(opcion-1).getBook().setDisponible(true);
+                operaciones.push(new Operacion(opCount++, Operacion.Opcion.DEVOLUCION,opList.get(opcion-1).getUser(),opList.get(opcion-1).getBook(),LocalDate.now(),0));
+                totalPrestados--;
+                opResult = true;
+            }
         }
 
         return opResult;
-    }
+    } //REVISADO
 
     public void mostrarOp(){
         int cantidad = operaciones.size();
@@ -169,15 +185,23 @@ public class GestorBiblioteca  {
             Stack<Operacion> aux = new Stack<>();
             Operacion op;
             for (int i = 0; i < cantidad; i++) {
-                aux.push(operaciones.pop());
+                try {
+                    aux.push(operaciones.pop());
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
             }
             for (int i = 0; i < cantidad; i++) {
-                op = aux.pop();
-                System.out.println(op);
-                operaciones.push(op);
+                try {
+                    op = aux.pop();
+                    System.out.println(op);
+                    operaciones.push(op);
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
             }
         }
-    }
+    } //REVISADO
 
     public void mostrarPendientes(){
         Pendiente pend;
@@ -188,12 +212,16 @@ public class GestorBiblioteca  {
             System.out.println("No hay pendientes.");
         }else {
             for (int i = 0; i < size; i++) {
-                pend = pendientes.remove();
-                System.out.println(pend);
-                pendientes.add(pend);
+                try {
+                    pend = pendientes.remove();
+                    System.out.println(pend);
+                    pendientes.add(pend);
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
             }
         }
-    }
+    } //REVISADO
 
     public void procesarPendientes(){
         int size = pendientes.size();
@@ -219,24 +247,33 @@ public class GestorBiblioteca  {
                         System.out.println("Pendiente removido!");
                     }
                     count++;
+                    if (!(Helper.getInteger("Ingrese 1 para seguir procesando pendientes o cualquier otro numero para salir: ")==1)){
+                        return;
+                    }
                 }else{
                     pendientes.add(aux);
                 }
-                if (count == 0){
-                    System.out.println("Ninguna de las operaciones pendientes puede completarse.");
-                }
+            }
+            if (count == 0){
+                System.out.println("Ninguna de las operaciones pendientes restantes puede completarse.");
             }
         }else{
             System.out.println("No hay pendientes para procesar.");
         }
 
-    }
+    } //REVISADO
 
     public void revertir(){
         if (operaciones.empty()){
             System.out.println("No hay operaciones para revertir.");
         }else{
-            Operacion revert = operaciones.pop();
+            Operacion revert = null;
+            try {
+                revert = operaciones.pop();
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+                return;
+            }
             Operacion.Opcion tipo = revert.getTipo();
             System.out.println(revert.toString());
             int option = Helper.getInteger("Desea anular la operacion? (Ingrese 1 para confirmar, cualquier otro numero para cancelar): ");
@@ -253,10 +290,44 @@ public class GestorBiblioteca  {
                     System.out.println("Devolucion anulada!");
                 }
             }else{
-                operaciones.push(revert);
+                try {
+                    operaciones.push(revert);
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
             }
         }
-    }
+    } //REVISADO
+
+    public DoubleLinkedList<Libro> listaLibrosAutor(){
+        DoubleLinkedList<Libro> returnList = new DoubleLinkedList<>();
+
+        String subAutor = Helper.getString("Ingrese el nombre del autor o parte de el nombre: ");
+
+        for (int i = 0; i < booksCount; i++) {
+            if (books[i].getAutor().contains(subAutor)){
+                returnList.addLast(books[i]);
+            }
+        }
+        return returnList;
+    } //REVISADO
+
+    public DoubleLinkedList<Usuario> usuariosCantidadLibrosPrestados(){
+
+        DoubleLinkedList<Usuario> returnList = new DoubleLinkedList<>();
+        int cantidadMinima = Helper.getInteger("Ingrese la cantidad de libros: ");
+        while (cantidadMinima<0){
+            cantidadMinima = Helper.getInteger("Ingrese un numero mayor o igual a 0");
+        }
+
+        for (int i = 0; i < usersCount; i++) {
+            if (users[i].getCantidadPrestados()>=cantidadMinima){
+                returnList.addLast(users[i]);
+            }
+        }
+
+        return returnList;
+    } //REVISADO
     //endregion
 
     //region GETTERS - REVISADO
@@ -294,48 +365,16 @@ public class GestorBiblioteca  {
         return opCount;
     }
 
-    //endregion  REVISADO
-
     public int getTotalPrestados() {
         return totalPrestados;
     }
-
-    public DoubleLinkedList<Libro> listaLibrosAutor(){
-        DoubleLinkedList<Libro> returnList = new DoubleLinkedList<>();
-
-        String subAutor = Helper.getString("Ingrese el nombre del autor o parte de el nombre: ");
-
-        for (int i = 0; i < booksCount; i++) {
-            if (books[i].getAutor().contains(subAutor)){
-                returnList.addLast(books[i]);
-            }
-        }
-        return returnList;
-    }
-
-    public DoubleLinkedList<Usuario> usuariosCantidadLibrosPrestados(){
-
-        DoubleLinkedList<Usuario> returnList = new DoubleLinkedList<>();
-        int cantidadMinima = Helper.getInteger("Ingrese la cantidad de libros: ");
-        while (cantidadMinima<0){
-            cantidadMinima = Helper.getInteger("Ingrese un numero mayor o igual a 0");
-        }
-
-        for (int i = 0; i < usersCount; i++) {
-            if (users[i].getCantidadPrestados()>=cantidadMinima){
-                returnList.addLast(users[i]);
-            }
-        }
-
-        return returnList;
-    }
     //endregion
 
-    //region AUX METHODS
+    //region AUX METHODS - REVISADO
     public int rand(){
         Random random = new Random();
         return random.nextInt(10000);
-    }
+    } //REVISADO
 
     public Usuario userByCode(){
         Usuario result = null;
@@ -346,7 +385,7 @@ public class GestorBiblioteca  {
             System.out.println("El usuario no existe.");
         }
         return result;
-    }
+    } //REVISADO
     
     public Libro searchBook(){
         Libro result = null;
@@ -392,7 +431,7 @@ public class GestorBiblioteca  {
             break;
         }
         return result;
-    }
+    } //REVISADO
 
     public Libro bookByCode(){
         Libro result = null;
@@ -403,7 +442,7 @@ public class GestorBiblioteca  {
             System.out.println("El libro no existe.");
         }
         return result;
-    }
+    } //REVISADO
 
     public Libro bookByAutor(){
         String sub = Helper.getString("Ingrese el nombre o parte del nombre de autor a buscar: ");
@@ -421,7 +460,6 @@ public class GestorBiblioteca  {
                 System.out.println((i+1)+" - "+booksList.get(i).toString());
             }
             int opcion = Helper.getInteger("Ingrese el libro elegido (0 para cancelar):");
-            //TODO Comprabar que no sea mayor al limete
             if (!(opcion <= 0) && opcion >= booksList.size()){
                 result = booksList.get(opcion-1);
             }else {
@@ -429,7 +467,7 @@ public class GestorBiblioteca  {
             }
         }
         return result;
-    }
+    } //REVISADO
 
     public  Libro booksByTitle(){
         String sub = Helper.getString("Ingrese el nombre o parte del titulo a buscar: ");
@@ -447,17 +485,17 @@ public class GestorBiblioteca  {
                 System.out.println((i+1)+" - "+booksList.get(i).toString());
             }
             int opcion = Helper.getInteger("Ingrese el libro elegido (0 para cancelar):");
-            if (!(opcion == 0)){
+            if (!(opcion == 0) && opcion <= booksList.size()){
                 result = booksList.get(opcion-1);
             }else {
                 System.out.println("Operacion cancelada.");
             }
         }
         return result;
-    }
-    //endregion
+    } //REVISADO
+    //endregion  -
 
-    //region Debug Methods
+    //region DEBUG METHODS - REVISADO
     public void addDebugDataBooks(){
         int codigo = 123;
         booksCode.add(codigo);
