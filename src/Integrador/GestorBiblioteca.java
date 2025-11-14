@@ -18,6 +18,7 @@ public class GestorBiblioteca  {
     private int booksCount; //Índices de array
     private int usersCount; //
     private int opCount;
+    private int totalPrestados;
     private BinarySearchTree<Libro> booksTree;
     private BinarySearchTree<Usuario> usersTree;
     private ArrayList<Integer> booksCode;
@@ -38,6 +39,7 @@ public class GestorBiblioteca  {
         booksCount = 0;
         usersCount = 0;
         opCount = 0;
+        totalPrestados = 0;
         pendientes = new Queue<>(100);
         operaciones = new Stack<>(100);
     }
@@ -118,6 +120,7 @@ public class GestorBiblioteca  {
             operaciones.push(new Operacion(++opCount,Operacion.Opcion.PRESTAMO,user,libro, LocalDate.now(),dias));
             libro.setDisponible(false);
             user.prestar();
+            totalPrestados++;
             return true;
         }else{
             pendientes.add(new Pendiente(user,libro));
@@ -151,6 +154,7 @@ public class GestorBiblioteca  {
             opList.get(opcion-1).setCompletada(true);
             opList.get(opcion-1).getBook().setDisponible(true);
             operaciones.push(new Operacion(opCount++, Operacion.Opcion.DEVOLUCION,opList.get(opcion-1).getUser(),opList.get(opcion-1).getBook(),LocalDate.now(),0));
+            totalPrestados--;
             opResult = true;
         }
 
@@ -209,6 +213,7 @@ public class GestorBiblioteca  {
                         aux.getLibro().setDisponible(false);
                         operaciones.push(new Operacion(opCount, Operacion.Opcion.PRESTAMO, aux.getUsuario(),aux.getLibro(), LocalDate.now(), dias));
                         opCount++;
+                        totalPrestados++;
                         System.out.println("Operacion completada y pendiente removido!");
                     }else {
                         System.out.println("Pendiente removido!");
@@ -228,8 +233,29 @@ public class GestorBiblioteca  {
     }
 
     public void revertir(){
-        Operacion revert = operaciones.pop();
-        Operacion.Opcion tipo = revert.getTipo();
+        if (operaciones.empty()){
+            System.out.println("No hay operaciones para revertir.");
+        }else{
+            Operacion revert = operaciones.pop();
+            Operacion.Opcion tipo = revert.getTipo();
+            System.out.println(revert.toString());
+            int option = Helper.getInteger("Desea anular la operacion? (Ingrese 1 para confirmar, cualquier otro numero para cancelar): ");
+            if (option == 1){
+                if (tipo == Operacion.Opcion.PRESTAMO){
+                    revert.getBook().setDisponible(true);
+                    revert.getUser().devolver();
+                    totalPrestados--;
+                    System.out.println("Prestamo anulado!");
+                }else{
+                    revert.getBook().setDisponible(false);
+                    revert.getUser().prestar();
+                    totalPrestados++;
+                    System.out.println("Devolucion anulada!");
+                }
+            }else{
+                operaciones.push(revert);
+            }
+        }
     }
     //endregion
 
@@ -267,7 +293,43 @@ public class GestorBiblioteca  {
     public int getOpCount() {
         return opCount;
     }
-    //endregion  R REVISADO
+
+    //endregion  REVISADO
+
+    public int getTotalPrestados() {
+        return totalPrestados;
+    }
+
+    public DoubleLinkedList<Libro> listaLibrosAutor(){
+        DoubleLinkedList<Libro> returnList = new DoubleLinkedList<>();
+
+        String subAutor = Helper.getString("Ingrese el nombre del autor o parte de el nombre: ");
+
+        for (int i = 0; i < booksCount; i++) {
+            if (books[i].getAutor().contains(subAutor)){
+                returnList.addLast(books[i]);
+            }
+        }
+        return returnList;
+    }
+
+    public DoubleLinkedList<Usuario> usuariosCantidadLibrosPrestados(){
+
+        DoubleLinkedList<Usuario> returnList = new DoubleLinkedList<>();
+        int cantidadMinima = Helper.getInteger("Ingrese la cantidad de libros: ");
+        while (cantidadMinima<0){
+            cantidadMinima = Helper.getInteger("Ingrese un numero mayor o igual a 0");
+        }
+
+        for (int i = 0; i < usersCount; i++) {
+            if (users[i].getCantidadPrestados()>=cantidadMinima){
+                returnList.addLast(users[i]);
+            }
+        }
+
+        return returnList;
+    }
+    //endregion
 
     //region AUX METHODS
     public int rand(){
@@ -453,9 +515,11 @@ public class GestorBiblioteca  {
     public void addDebugDataOp(){
         Operacion op1 = new Operacion(++opCount, Operacion.Opcion.PRESTAMO,users[1],books[3],LocalDate.now(),60);
         operaciones.push(op1); //guardando en stack
+        totalPrestados++;
         users[1].prestar();
         Operacion op2 = new Operacion(++opCount, Operacion.Opcion.PRESTAMO,users[1],books[0],LocalDate.now(),60);
         operaciones.push(op2);
+        totalPrestados++;
         users[1].prestar();
     }
 

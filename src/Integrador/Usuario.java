@@ -49,6 +49,10 @@ public class Usuario implements Comparable<Usuario>{
         return numeroUsuario;
     }
 
+    public int getCantidadPrestados() {
+        return cantidadPrestados;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +

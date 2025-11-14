@@ -113,9 +113,6 @@ public class DoubleLinkedList<ELEMENT> implements ILinkedList<ELEMENT> {
         }
         this.tail = temp;
         ++this.count;
-
-        System.out.println("Head: "+head.item);
-        System.out.println("Tail: "+tail.item);
     }
 
     // Removes and returns the first element from this list.
