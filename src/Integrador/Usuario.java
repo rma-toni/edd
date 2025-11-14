@@ -1,5 +1,7 @@
 package Integrador;
 
+//REVISADO
+
 public class Usuario implements Comparable<Usuario>{
 
     private int numeroUsuario;

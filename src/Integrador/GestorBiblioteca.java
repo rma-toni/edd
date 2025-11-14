@@ -12,10 +12,10 @@ import java.util.Random;
 
 public class GestorBiblioteca  {
 
-    //region ATTRIBUTES
+    //region ATTRIBUTES - REVISADO
     private Libro[] books;
     private Usuario[] users;
-    private int booksCount; //Indices de array
+    private int booksCount; //Índices de array
     private int usersCount; //
     private int opCount;
     private BinarySearchTree<Libro> booksTree;
@@ -233,7 +233,7 @@ public class GestorBiblioteca  {
     }
     //endregion
 
-    //region GETTERS
+    //region GETTERS - REVISADO
     public Libro[] getBooks() {
         return books;
     }
@@ -267,7 +267,7 @@ public class GestorBiblioteca  {
     public int getOpCount() {
         return opCount;
     }
-    //endregion
+    //endregion  R REVISADO
 
     //region AUX METHODS
     public int rand(){

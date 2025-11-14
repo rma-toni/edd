@@ -2,6 +2,8 @@ package Integrador;
 
 import java.time.LocalDate;
 
+//REVISADO
+
 public class Operacion {
 
     //Enumerador

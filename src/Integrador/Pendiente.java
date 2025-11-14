@@ -1,5 +1,6 @@
 package Integrador;
 
+//REVISADO
 
 public class Pendiente {
     private Usuario usuario;

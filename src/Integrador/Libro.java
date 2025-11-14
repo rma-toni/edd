@@ -1,6 +1,6 @@
 package Integrador;
 
-//AGREGAR PRECIO
+//REVISADO
 
 public class Libro implements Comparable<Libro> {
 
